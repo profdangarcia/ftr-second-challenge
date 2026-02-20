@@ -58,7 +58,29 @@
     				'3': 'hsl(var(--chart-3))',
     				'4': 'hsl(var(--chart-4))',
     				'5': 'hsl(var(--chart-5))'
-    			}
+    			},
+    			/* Grayscale */
+    			gray: {
+    				100: 'hsl(var(--gray-100))',
+    				200: 'hsl(var(--gray-200))',
+    				300: 'hsl(var(--gray-300))',
+    				400: 'hsl(var(--gray-400))',
+    				500: 'hsl(var(--gray-500))',
+    				600: 'hsl(var(--gray-600))',
+    				700: 'hsl(var(--gray-700))',
+    				800: 'hsl(var(--gray-800))'
+    			},
+    			/* Feedback */
+    			danger: 'hsl(var(--danger))',
+    			success: 'hsl(var(--success))',
+    			/* Palette (dark, base, light) */
+    			blue: { dark: 'hsl(var(--blue-dark))', base: 'hsl(var(--blue-base))', light: 'hsl(var(--blue-light))' },
+    			purple: { dark: 'hsl(var(--purple-dark))', base: 'hsl(var(--purple-base))', light: 'hsl(var(--purple-light))' },
+    			pink: { dark: 'hsl(var(--pink-dark))', base: 'hsl(var(--pink-base))', light: 'hsl(var(--pink-light))' },
+    			red: { dark: 'hsl(var(--red-dark))', base: 'hsl(var(--red-base))', light: 'hsl(var(--red-light))' },
+    			orange: { dark: 'hsl(var(--orange-dark))', base: 'hsl(var(--orange-base))', light: 'hsl(var(--orange-light))' },
+    			yellow: { dark: 'hsl(var(--yellow-dark))', base: 'hsl(var(--yellow-base))', light: 'hsl(var(--yellow-light))' },
+    			green: { dark: 'hsl(var(--green-dark))', base: 'hsl(var(--green-base))', light: 'hsl(var(--green-light))' }
     		},
     		borderRadius: {
     			lg: 'var(--radius)',
