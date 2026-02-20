@@ -27,7 +27,6 @@ export function Header() {
               <Button
                 size="sm"
                 className="gap-2"
-                variant={isHomePage ? "default" : "ghost"}
               >
                 <Home className="h-4 w-4" />
                 Início
@@ -48,7 +47,7 @@ export function Header() {
                 </span>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={handleLogout}>
+            <Button size="icon" onClick={handleLogout}>
               <LogOut className="w-5 h-5" />
             </Button>
           </div>
