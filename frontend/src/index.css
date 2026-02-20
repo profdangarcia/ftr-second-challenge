@@ -63,7 +63,7 @@
     --destructive: var(--danger);
     --destructive-foreground: var(--white);
     --border: var(--gray-200);
-    --input: var(--gray-200);
+    --input: var(--gray-300);
     --ring: var(--gray-800);
     --radius: 0.5rem;
     --chart-1: var(--blue-base);
