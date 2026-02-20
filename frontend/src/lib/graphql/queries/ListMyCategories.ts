@@ -5,6 +5,8 @@ export const LIST_MY_CATEGORIES = gql`
     listMyCategories {
       id
       title
+      color
+      icon
     }
   }
 `
@@ -12,6 +14,8 @@ export const LIST_MY_CATEGORIES = gql`
 export interface CategoryGql {
   id: string
   title: string
+  color: string
+  icon: string
 }
 
 export interface ListMyCategoriesQuery {

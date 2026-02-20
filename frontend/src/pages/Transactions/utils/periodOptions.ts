@@ -32,3 +32,14 @@ export function getCurrentPeriodValue(): string {
   const now = new Date()
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`
 }
+
+/** Converte "YYYY-MM" em startDate e endDate (ISO) para a API. */
+export function periodToStartEnd(period: string): { startDate: string; endDate: string } {
+  const [y, m] = period.split("-").map(Number)
+  const start = new Date(y, m - 1, 1)
+  const end = new Date(y, m, 0)
+  return {
+    startDate: start.toISOString().slice(0, 10),
+    endDate: end.toISOString().slice(0, 10),
+  }
+}
