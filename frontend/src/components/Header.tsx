@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 import fullLogo from "@/assets/full_logo.svg"
-import { LogOut } from "lucide-react"
 
 export function Header() {
-  const { user, isAuthenticated, logout } = useAuthStore()
+  const { user, isAuthenticated } = useAuthStore()
   const location = useLocation()
 
   const navLinks = [
@@ -60,16 +59,17 @@ export function Header() {
               )
             })}
           </nav>
-          <div className="flex shrink-0 items-center gap-3">
+          <Link
+            to="/usuario"
+            className="flex shrink-0 items-center transition-opacity hover:opacity-80"
+            aria-label="Abrir perfil do usuário"
+          >
             <Avatar>
               <AvatarFallback className="bg-gray-300 text-gray-800 text-sm font-medium">
                 {initials}
               </AvatarFallback>
             </Avatar>
-            <Button variant="link" size="icon" onClick={logout}>
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
+          </Link>
         </div>
       )}
     </header>

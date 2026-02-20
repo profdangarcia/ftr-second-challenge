@@ -5,6 +5,7 @@ import { Signup } from "./pages/Auth/Signup"
 import { Home } from "./pages/Home"
 import { Transactions } from "./pages/Transactions"
 import { Categories } from "./pages/Categories"
+import { User } from "./pages/User"
 import { useAuthStore } from "./stores/auth"
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -58,6 +59,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Categories />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/usuario"
+          element={
+            <ProtectedRoute>
+              <User />
             </ProtectedRoute>
           }
         />

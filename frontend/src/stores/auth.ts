@@ -4,6 +4,7 @@ import { apolloClient } from "@/lib/graphql/apollo"
 import type { User ,RegisterInput, LoginInput} from '@/types'
 import { REGISTER } from '@/lib/graphql/mutations/Register'
 import { LOGIN } from '../lib/graphql/mutations/Login'
+import { UPDATE_PROFILE } from '@/lib/graphql/mutations/UpdateProfile'
 
 type RegisterMutationData = {
   register: {
@@ -21,6 +22,10 @@ type LoginMutationData = {
   }
 }
 
+type UpdateProfileMutationData = {
+  updateProfile: User
+}
+
 interface AuthState {
   user: User | null
   token: string | null
@@ -28,6 +33,7 @@ interface AuthState {
   signup: (data: RegisterInput) => Promise<boolean>
   login: (data: LoginInput) => Promise<boolean>
   logout: () => void
+  updateProfile: (name: string) => Promise<boolean>
 }
 
 export const useAuthStore = create<AuthState>() (
@@ -112,6 +118,34 @@ export const useAuthStore = create<AuthState>() (
             isAuthenticated: false
           })
           apolloClient.clearStore()
+        },
+        updateProfile: async (name: string) => {
+          try {
+            const { data } = await apolloClient.mutate<
+              UpdateProfileMutationData,
+              { data: { name: string } }
+            >({
+              mutation: UPDATE_PROFILE,
+              variables: { data: { name } },
+            })
+            if (data?.updateProfile) {
+              const user = data.updateProfile
+              set({
+                user: {
+                  id: user.id,
+                  name: user.name,
+                  email: user.email,
+                  createdAt: user.createdAt,
+                  updatedAt: user.updatedAt,
+                },
+              })
+              return true
+            }
+            return false
+          } catch (error) {
+            console.error("Error updating profile", error)
+            throw error
+          }
         },
       }),
       {
