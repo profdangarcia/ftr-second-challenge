@@ -1,12 +1,10 @@
 import { Card } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
 import { TransactionsTableHeader } from "./TransactionsTableHeader"
 import { TransactionTableRow } from "./TransactionTableRow"
+import { TransactionsTablePaginator } from "./TransactionsTablePaginator"
 import type { TransactionItemGql } from "@/lib/graphql/queries/ListMyTransactions"
 import type { CategoryGql } from "@/lib/graphql/queries/ListMyCategories"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils"
 
 const PAGE_SIZE = 10
 
@@ -28,9 +26,6 @@ export function TransactionsTable({
   onPageChange,
 }: TransactionsTableProps) {
   const categoryById = new Map(categories.map((c) => [c.id, c]))
-  const totalPages = Math.max(1, Math.ceil(total / pageSize))
-  const start = total === 0 ? 0 : (page - 1) * pageSize + 1
-  const end = Math.min(page * pageSize, total)
 
   return (
     <Card className="rounded-xl overflow-hidden">
@@ -58,50 +53,12 @@ export function TransactionsTable({
         </TableBody>
       </Table>
       {total > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 bg-gray-50/50 px-4 py-3">
-          <p className="text-sm text-gray-600">
-            {start} a {end} | {total} resultado{total !== 1 ? "s" : ""}
-          </p>
-          <div className="flex items-center gap-1">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              disabled={page <= 1}
-              onClick={() => onPageChange(page - 1)}
-              aria-label="Página anterior"
-            >
-              <ChevronLeft className="size-4" />
-            </Button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <Button
-                key={p}
-                type="button"
-                variant={p === page ? "default" : "outline"}
-                size="sm"
-                className={cn(
-                  "min-w-8 h-8",
-                  p === page && "bg-brand-base hover:bg-brand-dark"
-                )}
-                onClick={() => onPageChange(p)}
-              >
-                {p}
-              </Button>
-            ))}
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              disabled={page >= totalPages}
-              onClick={() => onPageChange(page + 1)}
-              aria-label="Próxima página"
-            >
-              <ChevronRight className="size-4" />
-            </Button>
-          </div>
-        </div>
+        <TransactionsTablePaginator
+          total={total}
+          page={page}
+          pageSize={pageSize}
+          onPageChange={onPageChange}
+        />
       )}
     </Card>
   )
