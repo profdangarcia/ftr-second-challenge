@@ -1,58 +1,77 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useAuthStore } from "../stores/auth"
-import { Button } from "./ui/button"
-import { Home, LogOut } from "lucide-react"
-import { Avatar, AvatarFallback } from "./ui/avatar"
+import { Link, useLocation } from "react-router-dom"
+import { useAuthStore } from "@/stores/auth"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+
+import fullLogo from "@/assets/full_logo.svg"
+import { LogOut } from "lucide-react"
 
 export function Header() {
-  const { user, logout, isAuthenticated } = useAuthStore()
+  const { user, isAuthenticated, logout } = useAuthStore()
   const location = useLocation()
-  const navigate = useNavigate()
-  const isHomePage = location.pathname === "/"
 
-  const handleLogout = () => {
-    logout()
-    navigate("/login")
-  }
+  const navLinks = [
+    { to: "/", label: "Dashboard" },
+    { to: "/transacoes", label: "Transações" },
+    { to: "/categorias", label: "Categorias" },
+  ]
+
+  const initials = user?.name
+    ? (() => {
+        const trimmed = user.name.trim()
+        const parts = trimmed.split(/\s+/).filter(Boolean)
+        if (parts.length >= 2)
+          return (parts[0][0] + parts[1][0]).toUpperCase().slice(0, 2)
+        return trimmed.slice(0, 2).toUpperCase() || "?"
+      })()
+    : "?"
 
   return (
-    <div className="w-full px-16 pt-6">
+    <header className="w-full border-b border-gray-200 bg-white">
       {isAuthenticated && (
-        <div className="flex justify-between w-full">
-          <div className="min-w-48 flex items-center">
-            <span className="text-lg font-semibold">App</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link to="/">
-              <Button
-                size="sm"
-                className="gap-2"
-              >
-                <Home className="h-4 w-4" />
-                Início
-              </Button>
-            </Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2">
-              <Avatar>
-                <AvatarFallback className="bg-zinc-950 text-primary-foreground">
-                  {user?.name?.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">{user?.name}</span>
-                <span className="text-xs text-muted-foreground">
-                  {user?.email}
-                </span>
-              </div>
-            </div>
-            <Button size="icon" onClick={handleLogout}>
-              <LogOut className="w-5 h-5" />
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
+          <Link to="/" className="flex shrink-0 items-center">
+            <img
+              src={fullLogo}
+              alt="Financy"
+              className="h-7 w-auto"
+            />
+          </Link>
+          <nav className="flex items-center gap-8">
+            {navLinks.map(({ to, label }) => {
+              const isActive = location.pathname === to
+              return (
+                <Button 
+                  key={to}
+                  variant="link" 
+                  asChild 
+                  className={`${
+                    isActive
+                      ? "text-primary font-bold"
+                      : "text-gray-600"
+                  }`}
+                >
+                  <Link
+                    to={to}
+                  >
+                    {label}
+                  </Link>
+                </Button>
+              )
+            })}
+          </nav>
+          <div className="flex shrink-0 items-center gap-3">
+            <Avatar>
+              <AvatarFallback className="bg-gray-300 text-gray-800 text-sm font-medium">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+            <Button variant="link" size="icon" onClick={logout}>
+              <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>
       )}
-    </div>
+    </header>
   )
 }

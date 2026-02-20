@@ -3,6 +3,8 @@ import { Layout } from "@/components/Layout"
 import { Login } from "./pages/Auth/Login"
 import { Signup } from "./pages/Auth/Signup"
 import { Home } from "./pages/Home"
+import { Transactions } from "./pages/Transactions"
+import { Categories } from "./pages/Categories"
 import { useAuthStore } from "./stores/auth"
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -40,6 +42,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/transacoes"
+          element={
+            <ProtectedRoute>
+              <Transactions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/categorias"
+          element={
+            <ProtectedRoute>
+              <Categories />
             </ProtectedRoute>
           }
         />
