@@ -28,7 +28,7 @@
     --blue-light: 214 96% 93%;
     --purple-dark: 271 81% 41%;
     --purple-base: 271 81% 56%;
-    --purple-light: 270 100% 98%;
+    --purple-light: 270 100% 96%;
     --pink-dark: 330 75% 41%;
     --pink-base: 330 81% 60%;
     --pink-light: 330 100% 96%;
@@ -43,7 +43,7 @@
     --yellow-light: 52 86% 88%;
     --green-dark: 142 69% 31%;
     --green-base: 142 69% 38%;
-    --green-light: 142 76% 94%;
+    --green-light: 142 76% 92%;
 
     /* Semantic (shadcn) – alinhados à paleta */
     --background: var(--white);

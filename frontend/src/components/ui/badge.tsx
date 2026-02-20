@@ -25,22 +25,60 @@ const badgeVariants = cva(
   }
 )
 
+/** Cor BASE da variante para o ícone (modo icon). */
+const variantIconColorClass: Record<
+  NonNullable<VariantProps<typeof badgeVariants>["variant"]>,
+  string
+> = {
+  default: "text-gray-700",
+  blue: "text-blue-base",
+  purple: "text-purple-base",
+  pink: "text-pink-base",
+  red: "text-red-base",
+  orange: "text-orange-base",
+  yellow: "text-yellow-base",
+  green: "text-green-base",
+}
+
 function Badge({
   className,
   variant = "default",
   asChild = false,
+  icon,
+  children,
   ...props
 }: React.ComponentProps<"span"> &
-  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+  VariantProps<typeof badgeVariants> & {
+    asChild?: boolean
+    icon?: React.ReactNode
+  }) {
   const Comp = asChild ? Slot : "span"
+  const isIconMode = icon != null
 
   return (
     <Comp
       data-slot="badge"
       data-variant={variant}
-      className={cn(badgeVariants({ variant }), className)}
+      className={cn(
+        badgeVariants({ variant }),
+        isIconMode && "h-10 w-10 !rounded-lg p-0",
+        className
+      )}
       {...props}
-    />
+    >
+      {isIconMode ? (
+        <span
+          className={cn(
+            "flex items-center justify-center [&>svg]:size-4 [&>svg]:shrink-0",
+            variantIconColorClass[variant ?? "default"]
+          )}
+        >
+          {icon}
+        </span>
+      ) : (
+        children
+      )}
+    </Comp>
   )
 }
 
