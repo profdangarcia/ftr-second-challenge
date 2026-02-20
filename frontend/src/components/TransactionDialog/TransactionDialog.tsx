@@ -22,6 +22,7 @@ import { useTransactionDialogStore } from "@/stores/transactionDialog"
 import { useCategoriesStore } from "@/stores/categories"
 import { CREATE_TRANSACTION, type CreateTransactionInput } from "@/lib/graphql/mutations/CreateTransaction"
 import { UPDATE_TRANSACTION, type UpdateTransactionInput } from "@/lib/graphql/mutations/UpdateTransaction"
+import { CircleArrowDownIcon, CircleArrowUpIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { getGraphQLMessage } from "@/lib/utils"
 
@@ -149,30 +150,30 @@ export function TransactionDialog() {
               type="button"
               onClick={() => setType("EXPENSE")}
               className={cn(
-                "flex flex-1 items-center justify-center gap-2 rounded-md py-2.5 text-sm font-medium transition-colors",
+                "flex flex-1 items-center justify-center gap-2 rounded-md border py-2.5 text-sm font-medium transition-colors",
                 type === "EXPENSE"
-                  ? "border border-red-300 bg-red-50 text-red-dark"
-                  : "border border-transparent text-gray-600 hover:bg-gray-50"
+                  ? "border-red-base bg-red-50 text-gray-800"
+                  : "border-transparent text-gray-600 hover:bg-gray-50"
               )}
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-red-500 bg-red-500 text-white">
-                −
-              </span>
+              <CircleArrowDownIcon
+                className={cn("size-5 shrink-0", type === "EXPENSE" ? "text-red-base" : "text-gray-400")}
+              />
               Despesa
             </button>
             <button
               type="button"
               onClick={() => setType("INCOME")}
               className={cn(
-                "flex flex-1 items-center justify-center gap-2 rounded-md py-2.5 text-sm font-medium transition-colors",
+                "flex flex-1 items-center justify-center gap-2 rounded-md border py-2.5 text-sm font-medium transition-colors",
                 type === "INCOME"
-                  ? "border border-green-300 bg-green-50 text-green-dark"
-                  : "border border-transparent text-gray-600 hover:bg-gray-50"
+                  ? "border-green-base bg-green-50 text-gray-800"
+                  : "border-transparent text-gray-600 hover:bg-gray-50"
               )}
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-green-500 bg-green-500 text-white">
-                +
-              </span>
+              <CircleArrowUpIcon
+                className={cn("size-5 shrink-0", type === "INCOME" ? "text-green-base" : "text-gray-400")}
+              />
               Receita
             </button>
           </div>
