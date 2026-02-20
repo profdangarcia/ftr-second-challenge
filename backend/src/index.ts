@@ -5,6 +5,7 @@ import { ApolloServer } from '@apollo/server'
 import { buildSchema } from 'type-graphql'
 import { expressMiddleware } from '@as-integrations/express5'
 import { HealthResolver } from './resolvers/health.resolver'
+import { AuthResolver } from './resolvers/auth.resolver'
 import { buildContext } from './graphql/context'
 
 const PORT = process.env.PORT ?? 4000
@@ -21,7 +22,7 @@ async function bootstrap() {
   )
 
   const schema = await buildSchema({
-    resolvers: [HealthResolver],
+    resolvers: [HealthResolver, AuthResolver],
     validate: false,
     emitSchemaFile: './schema.graphql',
   })
