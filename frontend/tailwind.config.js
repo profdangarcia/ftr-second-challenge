@@ -76,6 +76,8 @@
     			/* Feedback */
     			danger: 'hsl(var(--danger))',
     			success: 'hsl(var(--success))',
+    			/* Brand */
+    			brand: { dark: 'hsl(var(--brand-dark))', base: 'hsl(var(--brand-base))' },
     			/* Palette (dark, base, light) */
     			blue: { dark: 'hsl(var(--blue-dark))', base: 'hsl(var(--blue-base))', light: 'hsl(var(--blue-light))' },
     			purple: { dark: 'hsl(var(--purple-dark))', base: 'hsl(var(--purple-base))', light: 'hsl(var(--purple-light))' },

@@ -19,6 +19,9 @@
     /* Feedback */
     --danger: 0 84% 60%;
     --success: 158 76% 39%;
+    /* Brand */
+    --brand-dark: 152 61% 18%;
+    --brand-base: 148 56% 28%;
     /* Palette: blue, purple, pink, red, orange, yellow, green */
     --blue-dark: 224 76% 48%;
     --blue-base: 221 83% 53%;
@@ -49,7 +52,7 @@
     --card-foreground: var(--gray-800);
     --popover: var(--white);
     --popover-foreground: var(--gray-800);
-    --primary: var(--green-base);
+    --primary: var(--brand-base);
     --primary-foreground: var(--white);
     --secondary: var(--gray-200);
     --secondary-foreground: var(--gray-800);
