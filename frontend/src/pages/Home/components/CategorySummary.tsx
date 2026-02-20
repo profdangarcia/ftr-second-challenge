@@ -51,29 +51,35 @@ export function CategorySummary({
         </Button>
       </CardHeader>
       <CardContent className="pt-4">
-        <ul className="space-y-3">
-          {categorySummaries.map((item) => (
-            <li
-              key={item.categoryId}
-              className="flex flex-wrap items-center justify-between gap-2"
-            >
-              <Badge
-                variant={badgeVariantFromColor(item.color)}
-                className="shrink-0"
+        {categorySummaries.length === 0 ? (
+          <p className="py-4 text-center text-sm text-gray-500">
+            Nenhuma categoria com movimentação no período.
+          </p>
+        ) : (
+          <ul className="space-y-3">
+            {categorySummaries.map((item) => (
+              <li
+                key={item.categoryId}
+                className="flex flex-wrap items-center justify-between gap-2"
               >
-                {item.title}
-              </Badge>
-              <div className="flex items-center gap-3 text-gray-600">
-                <span className="text-sm">
-                  {item.itemCount} {item.itemCount === 1 ? "item" : "itens"}
-                </span>
-                <span className="text-sm font-bold text-gray-800">
-                  {formatCurrency(item.totalValue / 100)}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
+                <Badge
+                  variant={badgeVariantFromColor(item.color)}
+                  className="shrink-0"
+                >
+                  {item.title}
+                </Badge>
+                <div className="flex items-center gap-3 text-gray-600">
+                  <span className="text-sm">
+                    {item.itemCount} {item.itemCount === 1 ? "item" : "itens"}
+                  </span>
+                  <span className="text-sm font-bold text-gray-800">
+                    {formatCurrency(item.totalValue / 100)}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </CardContent>
     </Card>
   )
