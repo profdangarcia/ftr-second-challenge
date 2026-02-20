@@ -9,18 +9,38 @@ type AuthOutput {
   user: UserModel!
 }
 
+type CategoryModel {
+  color: String!
+  createdAt: String!
+  description: String
+  icon: String!
+  id: ID!
+  title: String!
+  updatedAt: String!
+  userId: String!
+}
+
+input CreateCategoryInput {
+  color: String!
+  description: String
+  icon: String!
+  title: String!
+}
+
 input LoginInput {
   email: String!
   password: String!
 }
 
 type Mutation {
+  createCategory(data: CreateCategoryInput!): CategoryModel!
   login(data: LoginInput!): AuthOutput!
   register(data: RegisterInput!): AuthOutput!
 }
 
 type Query {
   health: String!
+  listMyCategories: [CategoryModel!]!
 }
 
 input RegisterInput {
