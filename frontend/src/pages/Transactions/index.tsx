@@ -1,13 +1,20 @@
 import { Page } from "@/components/Page"
+import { PageTitle } from "@/components/PageTitle"
+import { Button } from "@/components/ui/button"
+import { Plus } from "lucide-react"
 
 export function Transactions() {
   return (
     <Page>
-      <div className="space-y-4">
-        <h1 className="text-2xl font-bold">Transactions</h1>
-        <p className="text-muted-foreground">
-          Transactions page under development.
-        </p>
+      <div className="flex justify-between items-center">
+        <PageTitle 
+          title="Transações" 
+          description="Gerencie todas as suas transações financeiras" 
+        />
+        <Button size="sm">
+          <Plus className="size-4" />
+          Nova transação
+        </Button>
       </div>
     </Page>
   )
