@@ -27,6 +27,14 @@ input CreateCategoryInput {
   title: String!
 }
 
+input CreateTransactionInput {
+  categoryId: String!
+  date: String!
+  description: String!
+  type: TransactionType!
+  value: Float!
+}
+
 input LoginInput {
   email: String!
   password: String!
@@ -34,6 +42,7 @@ input LoginInput {
 
 type Mutation {
   createCategory(data: CreateCategoryInput!): CategoryModel!
+  createTransaction(data: CreateTransactionInput!): TransactionModel!
   login(data: LoginInput!): AuthOutput!
   register(data: RegisterInput!): AuthOutput!
 }
@@ -41,12 +50,31 @@ type Mutation {
 type Query {
   health: String!
   listMyCategories: [CategoryModel!]!
+  listMyTransactions(categoryId: String, description: String, endDate: String, limit: Int! = 20, offset: Int! = 0, startDate: String, type: TransactionType): [TransactionModel!]!
 }
 
 input RegisterInput {
   email: String!
   name: String!
   password: String!
+}
+
+type TransactionModel {
+  categoryId: String!
+  createdAt: String!
+  date: String!
+  description: String!
+  id: ID!
+  type: TransactionType!
+  updatedAt: String!
+  userId: String!
+  value: Float!
+}
+
+"""Despesa ou Receita"""
+enum TransactionType {
+  EXPENSE
+  INCOME
 }
 
 type UserModel {
