@@ -1,5 +1,5 @@
 import { Page } from "@/components/Page"
-import { SummaryCard } from "@/components/SummaryCard"
+import { SummaryCard } from "./components/SummaryCard"
 import { CircleArrowDownIcon, CircleArrowUpIcon, WalletIcon } from "lucide-react"
 
 export function Home() {
