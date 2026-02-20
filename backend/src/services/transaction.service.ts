@@ -12,7 +12,7 @@ export type TransactionFilters = {
   endDate?: string
 }
 
-function toTransactionModel(tx: {
+export function toTransactionModel(tx: {
   id: string
   userId: string
   categoryId: string

@@ -31,6 +31,14 @@ type CategoryModel {
   userId: String!
 }
 
+type CategorySummaryItem {
+  categoryId: ID!
+  color: CategoryColor!
+  itemCount: Int!
+  title: String!
+  totalValue: Float!
+}
+
 input CreateCategoryInput {
   color: CategoryColor!
   description: String
@@ -44,6 +52,14 @@ input CreateTransactionInput {
   description: String!
   type: TransactionType!
   value: Float!
+}
+
+type DashboardData {
+  categorySummaries: [CategorySummaryItem!]!
+  monthlyExpenses: Float!
+  monthlyIncome: Float!
+  recentTransactions: [TransactionModel!]!
+  totalBalance: Float!
 }
 
 input LoginInput {
@@ -64,6 +80,7 @@ type Mutation {
 }
 
 type Query {
+  getDashboardData: DashboardData!
   health: String!
   listMyCategories: [CategoryModel!]!
   listMyTransactions(categoryId: String, description: String, endDate: String, limit: Int! = 20, offset: Int! = 0, startDate: String, type: TransactionType): TransactionListOutput!

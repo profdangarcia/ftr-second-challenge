@@ -8,6 +8,7 @@ import { HealthResolver } from './resolvers/health.resolver'
 import { AuthResolver } from './resolvers/auth.resolver'
 import { CategoryResolver } from './resolvers/category.resolver'
 import { TransactionResolver } from './resolvers/transaction.resolver'
+import { DashboardResolver } from './resolvers/dashboard.resolver'
 import { buildContext } from './graphql/context'
 
 const PORT = process.env.PORT ?? 4000
@@ -24,7 +25,7 @@ async function bootstrap() {
   )
 
   const schema = await buildSchema({
-    resolvers: [HealthResolver, AuthResolver, CategoryResolver, TransactionResolver],
+    resolvers: [HealthResolver, AuthResolver, CategoryResolver, TransactionResolver, DashboardResolver],
     validate: false,
     emitSchemaFile: './schema.graphql',
   })
