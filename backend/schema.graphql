@@ -55,13 +55,18 @@ type Mutation {
 type Query {
   health: String!
   listMyCategories: [CategoryModel!]!
-  listMyTransactions(categoryId: String, description: String, endDate: String, limit: Int! = 20, offset: Int! = 0, startDate: String, type: TransactionType): [TransactionModel!]!
+  listMyTransactions(categoryId: String, description: String, endDate: String, limit: Int! = 20, offset: Int! = 0, startDate: String, type: TransactionType): TransactionListOutput!
 }
 
 input RegisterInput {
   email: String!
   name: String!
   password: String!
+}
+
+type TransactionListOutput {
+  items: [TransactionModel!]!
+  total: Int!
 }
 
 type TransactionModel {

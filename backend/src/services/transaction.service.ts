@@ -1,7 +1,7 @@
 import { GraphQLError } from 'graphql'
 import { prismaClient } from '../../prisma/prisma'
 import type { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input'
-import type { TransactionModel } from '../models/transaction.model'
+import type { TransactionModel, TransactionListOutput } from '../models/transaction.model'
 import { TransactionTypeEnum } from '../models/transaction.model'
 
 export type TransactionFilters = {
@@ -125,7 +125,7 @@ export async function listByUser(
   filters: TransactionFilters,
   limit: number,
   offset: number
-): Promise<TransactionModel[]> {
+): Promise<TransactionListOutput> {
   const where: Record<string, unknown> = { userId }
   if (filters.description != null && filters.description !== '') {
     where.description = { contains: filters.description }
@@ -146,11 +146,17 @@ export async function listByUser(
     }
   }
   const take = Math.min(Math.max(1, limit), 100)
-  const transactions = await prismaClient.transaction.findMany({
-    where,
-    orderBy: [{ date: 'desc' }, { createdAt: 'desc' }],
-    take,
-    skip: Math.max(0, offset),
-  })
-  return transactions.map(toTransactionModel)
+  const [transactions, total] = await Promise.all([
+    prismaClient.transaction.findMany({
+      where,
+      orderBy: [{ date: 'desc' }, { createdAt: 'desc' }],
+      take,
+      skip: Math.max(0, offset),
+    }),
+    prismaClient.transaction.count({ where }),
+  ])
+  return {
+    items: transactions.map(toTransactionModel),
+    total,
+  }
 }

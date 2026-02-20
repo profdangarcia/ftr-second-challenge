@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from 'type-graphql'
+import { ObjectType, Field, ID, Int } from 'type-graphql'
 import { registerEnumType } from 'type-graphql'
 
 export enum TransactionTypeEnum {
@@ -39,4 +39,13 @@ export class TransactionModel {
 
   @Field(() => String)
   updatedAt: string
+}
+
+@ObjectType()
+export class TransactionListOutput {
+  @Field(() => [TransactionModel])
+  items: TransactionModel[]
+
+  @Field(() => Int)
+  total: number
 }

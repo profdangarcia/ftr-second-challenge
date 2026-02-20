@@ -1,8 +1,7 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql'
 import { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input'
 import { GraphqlContext } from '../graphql/context'
-import { TransactionModel } from '../models/transaction.model'
-import { TransactionTypeEnum } from '../models/transaction.model'
+import { TransactionListOutput, TransactionModel, TransactionTypeEnum } from '../models/transaction.model'
 import { IsAuth } from '../middlewares/auth.middleware'
 import * as transactionService from '../services/transaction.service'
 
@@ -39,7 +38,7 @@ export class TransactionResolver {
     return transactionService.remove(id, userId)
   }
 
-  @Query(() => [TransactionModel])
+  @Query(() => TransactionListOutput)
   @UseMiddleware(IsAuth)
   async listMyTransactions(
     @Ctx() context: GraphqlContext,
@@ -50,7 +49,7 @@ export class TransactionResolver {
     @Arg('endDate', () => String, { nullable: true }) endDate?: string,
     @Arg('limit', () => Int, { defaultValue: 20 }) limit: number = 20,
     @Arg('offset', () => Int, { defaultValue: 0 }) offset: number = 0
-  ): Promise<TransactionModel[]> {
+  ): Promise<TransactionListOutput> {
     const userId = context.user!
     const filters: transactionService.TransactionFilters = {
       description,
