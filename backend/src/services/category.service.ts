@@ -19,7 +19,7 @@ function toCategoryModel(category: {
     userId: category.userId,
     title: category.title,
     description: category.description ?? null,
-    icon: category.icon,
+    icon: category.icon as CategoryModel['icon'],
     color: category.color as CategoryColorEnum,
     createdAt: category.createdAt.toISOString(),
     updatedAt: category.updatedAt.toISOString(),

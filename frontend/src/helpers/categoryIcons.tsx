@@ -18,40 +18,41 @@ import {
   type LucideIcon,
 } from "lucide-react"
 
+/** Valores do enum CategoryIcon do backend (mesma key = mesmo ícone). */
 export type CategoryIconId =
-  | "briefcase"
-  | "car"
-  | "heart-pulse"
-  | "piggy-bank"
-  | "shopping-cart"
-  | "ticket"
-  | "tool-case"
-  | "utensils"
-  | "paw-print"
-  | "house"
-  | "gift"
-  | "dumbbell"
-  | "book-open"
-  | "luggage"
-  | "mailbox"
-  | "receipt"
+  | "BRIEFCASE"
+  | "CAR"
+  | "HEART_PULSE"
+  | "PIGGY_BANK"
+  | "SHOPPING_CART"
+  | "TICKET"
+  | "TOOL_CASE"
+  | "UTENSILS"
+  | "PAW_PRINT"
+  | "HOUSE"
+  | "GIFT"
+  | "DUMBBELL"
+  | "BOOK_OPEN"
+  | "LUGGAGE"
+  | "MAILBOX"
+  | "RECEIPT"
 
-/** Componente Lucide correspondente a cada ícone. */
+/** Componente Lucide correspondente a cada ícone (keys = enum do banco). */
 export const CATEGORY_ICON_COMPONENTS: Record<CategoryIconId, LucideIcon> = {
-  briefcase: BriefcaseBusiness,
-  car: CarFront,
-  "heart-pulse": HeartPulse,
-  "piggy-bank": PiggyBank,
-  "shopping-cart": ShoppingCart,
-  ticket: Ticket,
-  "tool-case": ToolCase,
-  utensils: Utensils,
-  "paw-print": PawPrint,
-  house: House,
-  gift: Gift,
-  dumbbell: Dumbbell,
-  "book-open": BookOpen,
-  luggage: BaggageClaim,
-  mailbox: Mailbox,
-  receipt: ReceiptText,
+  BRIEFCASE: BriefcaseBusiness,
+  CAR: CarFront,
+  HEART_PULSE: HeartPulse,
+  PIGGY_BANK: PiggyBank,
+  SHOPPING_CART: ShoppingCart,
+  TICKET: Ticket,
+  TOOL_CASE: ToolCase,
+  UTENSILS: Utensils,
+  PAW_PRINT: PawPrint,
+  HOUSE: House,
+  GIFT: Gift,
+  DUMBBELL: Dumbbell,
+  BOOK_OPEN: BookOpen,
+  LUGGAGE: BaggageClaim,
+  MAILBOX: Mailbox,
+  RECEIPT: ReceiptText,
 }

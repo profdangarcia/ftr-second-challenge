@@ -20,11 +20,31 @@ enum CategoryColor {
   YELLOW
 }
 
+"""Ícone da categoria (paleta do frontend)"""
+enum CategoryIcon {
+  BOOK_OPEN
+  BRIEFCASE
+  CAR
+  DUMBBELL
+  GIFT
+  HEART_PULSE
+  HOUSE
+  LUGGAGE
+  MAILBOX
+  PAW_PRINT
+  PIGGY_BANK
+  RECEIPT
+  SHOPPING_CART
+  TICKET
+  TOOL_CASE
+  UTENSILS
+}
+
 type CategoryModel {
   color: CategoryColor!
   createdAt: String!
   description: String
-  icon: String!
+  icon: CategoryIcon!
   id: ID!
   title: String!
   updatedAt: String!
@@ -42,7 +62,7 @@ type CategorySummaryItem {
 input CreateCategoryInput {
   color: CategoryColor!
   description: String
-  icon: String!
+  icon: CategoryIcon!
   title: String!
 }
 
@@ -118,7 +138,7 @@ enum TransactionType {
 input UpdateCategoryInput {
   color: CategoryColor
   description: String
-  icon: String
+  icon: CategoryIcon
   title: String
 }
 

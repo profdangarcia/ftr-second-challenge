@@ -31,12 +31,31 @@ enum CategoryColor {
   GREEN
 }
 
+enum CategoryIcon {
+  BRIEFCASE
+  CAR
+  HEART_PULSE
+  PIGGY_BANK
+  SHOPPING_CART
+  TICKET
+  TOOL_CASE
+  UTENSILS
+  PAW_PRINT
+  HOUSE
+  GIFT
+  DUMBBELL
+  BOOK_OPEN
+  LUGGAGE
+  MAILBOX
+  RECEIPT
+}
+
 model Category {
   id            String        @id @default(uuid())
   userId        String
   title         String
   description   String?
-  icon          String
+  icon          CategoryIcon
   color         CategoryColor
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt

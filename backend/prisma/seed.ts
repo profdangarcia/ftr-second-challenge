@@ -10,12 +10,12 @@ const DEFAULT_USER = {
 }
 
 const DEFAULT_CATEGORIES = [
-  { title: 'Alimentação', description: 'Supermercado, restaurantes, delivery', icon: 'utensils', color: 'GREEN' as const },
-  { title: 'Transporte', description: 'Combustível, Uber, ônibus', icon: 'car', color: 'BLUE' as const },
-  { title: 'Lazer', description: 'Cinema, streaming, passeios', icon: 'ticket', color: 'PURPLE' as const },
-  { title: 'Saúde', description: 'Farmácia, consultas, plano de saúde', icon: 'heart', color: 'PINK' as const },
-  { title: 'Casa', description: 'Contas, manutenção, decoração', icon: 'home', color: 'ORANGE' as const },
-  { title: 'Educação', description: 'Cursos, livros, materiais', icon: 'book-open', color: 'YELLOW' as const },
+  { title: 'Alimentação', description: 'Supermercado, restaurantes, delivery', icon: 'UTENSILS' as const, color: 'GREEN' as const },
+  { title: 'Transporte', description: 'Combustível, Uber, ônibus', icon: 'CAR' as const, color: 'BLUE' as const },
+  { title: 'Lazer', description: 'Cinema, streaming, passeios', icon: 'TICKET' as const, color: 'PURPLE' as const },
+  { title: 'Saúde', description: 'Farmácia, consultas, plano de saúde', icon: 'HEART_PULSE' as const, color: 'PINK' as const },
+  { title: 'Casa', description: 'Contas, manutenção, decoração', icon: 'HOUSE' as const, color: 'ORANGE' as const },
+  { title: 'Educação', description: 'Cursos, livros, materiais', icon: 'BOOK_OPEN' as const, color: 'YELLOW' as const },
 ]
 
 /** Transações de exemplo: { categoryTitle, type, description, dateISO, valueCentavos } - fevereiro 2026 */
