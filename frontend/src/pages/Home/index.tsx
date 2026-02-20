@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client/react"
 import { Page } from "@/components/Page"
 import { SummaryCard } from "./components/SummaryCard"
 import { CategorySummary, type CategorySummaryItem } from "./components/CategorySummary"
+import { RecentTransactions } from "./components/RecentTransactions"
 import { GET_DASHBOARD_DATA, type GetDashboardDataQuery } from "@/lib/graphql/queries/GetDashboardData"
 import { CircleArrowDownIcon, CircleArrowUpIcon, WalletIcon } from "lucide-react"
 
@@ -18,6 +19,7 @@ export function Home() {
   const monthlyExpensesReais =
     dashboard?.monthlyExpenses ? dashboard.monthlyExpenses * CENTAVOS_TO_REAIS : 0
   const categorySummaries: CategorySummaryItem[] = dashboard?.categorySummaries ?? []
+  const recentTransactions = dashboard?.recentTransactions ?? []
 
   return (
     <Page>
@@ -42,7 +44,13 @@ export function Home() {
             text="Despesas do Mês"
           />
         </div>
-        <CategorySummary categorySummaries={categorySummaries} />
+        <div className="flex w-full gap-6">
+          <RecentTransactions
+            recentTransactions={recentTransactions}
+            categorySummaries={categorySummaries}
+          />
+          <CategorySummary categorySummaries={categorySummaries} />
+        </div>
       </div>
     </Page>
   )

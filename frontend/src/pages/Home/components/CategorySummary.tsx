@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Badge, getBadgeVariantFromColor } from "@/components/ui/badge"
 import { formatCurrency } from "@/lib/utils"
 import { cn } from "@/lib/utils"
 
@@ -9,6 +9,7 @@ export interface CategorySummaryItem {
   categoryId: string
   title: string
   color: string
+  icon?: string
   itemCount: number
   totalValue: number
 }
@@ -18,30 +19,12 @@ interface CategorySummaryProps {
   className?: string
 }
 
-const BADGE_VARIANTS = [
-  "default",
-  "blue",
-  "purple",
-  "pink",
-  "red",
-  "orange",
-  "yellow",
-  "green",
-] as const
-
-function badgeVariantFromColor(color: string): (typeof BADGE_VARIANTS)[number] {
-  const lower = color.toLowerCase()
-  return BADGE_VARIANTS.includes(lower as (typeof BADGE_VARIANTS)[number])
-    ? (lower as (typeof BADGE_VARIANTS)[number])
-    : "default"
-}
-
 export function CategorySummary({
   categorySummaries,
   className,
 }: CategorySummaryProps) {
   return (
-    <Card className={cn("rounded-xl max-w-[calc(34%-1.5rem)] w-full", className)}>
+    <Card className={cn("rounded-xl max-w-[calc(34%-1.5rem)] w-full self-start", className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b border-gray-200 pb-4">
         <h2 className="text-[0.75rem] font-medium uppercase tracking-wide text-gray-500">
           Categorias
@@ -63,7 +46,7 @@ export function CategorySummary({
                 className="flex flex-wrap items-center justify-between gap-2"
               >
                 <Badge
-                  variant={badgeVariantFromColor(item.color)}
+                  variant={getBadgeVariantFromColor(item.color)}
                   className="shrink-0"
                 >
                   {item.title}

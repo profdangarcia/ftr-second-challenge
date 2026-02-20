@@ -16,6 +16,15 @@ export function formatCurrency(value: number): string {
   }).format(value)
 }
 
+/** Formata data no formato dd/MM/yy (ex.: 01/12/25). */
+export function formatShortDate(date: Date | string): string {
+  return new Date(date).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  })
+}
+
 export function formatRelativeDate(date: Date | string): string {
   const now = new Date()
   const past = new Date(date)

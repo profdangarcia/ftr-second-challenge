@@ -54,6 +54,7 @@ type CategoryModel {
 type CategorySummaryItem {
   categoryId: ID!
   color: CategoryColor!
+  icon: CategoryIcon!
   itemCount: Int!
   title: String!
   totalValue: Float!

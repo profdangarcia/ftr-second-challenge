@@ -2,7 +2,7 @@ import { startOfMonth, endOfMonth } from 'date-fns'
 import { prismaClient } from '../../prisma/prisma'
 import type { DashboardData } from '../models/dashboard.model'
 import type { CategorySummaryItem } from '../models/dashboard.model'
-import type { CategoryColorEnum } from '../models/category.model'
+import type { CategoryColorEnum, CategoryIconEnum } from '../models/category.model'
 import * as transactionService from './transaction.service'
 import * as categoryService from './category.service'
 
@@ -74,6 +74,7 @@ export async function getDashboardData(userId: string): Promise<DashboardData> {
     return {
       categoryId: row.categoryId,
       title: category?.title ?? '—',
+      icon: (category?.icon ?? 'UTENSILS') as CategoryIconEnum,
       color: (category?.color ?? 'GREEN') as CategoryColorEnum,
       itemCount: row._count._all,
       totalValue: row._sum.value ?? 0,

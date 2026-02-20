@@ -8,10 +8,16 @@ export const GET_DASHBOARD_DATA = gql`
       monthlyExpenses
       recentTransactions {
         id
+        categoryId
+        type
+        description
+        date
+        value
       }
       categorySummaries {
         categoryId
         title
+        icon
         color
         itemCount
         totalValue
@@ -23,9 +29,19 @@ export const GET_DASHBOARD_DATA = gql`
 export interface CategorySummaryItemGql {
   categoryId: string
   title: string
+  icon: string
   color: string
   itemCount: number
   totalValue: number
+}
+
+export interface RecentTransactionGql {
+  id: string
+  categoryId: string
+  type: string
+  description: string
+  date: string
+  value: number
 }
 
 export interface GetDashboardDataQuery {
@@ -33,7 +49,7 @@ export interface GetDashboardDataQuery {
     totalBalance: number
     monthlyIncome: number
     monthlyExpenses: number
-    recentTransactions: { id: string }[]
+    recentTransactions: RecentTransactionGql[]
     categorySummaries: CategorySummaryItemGql[]
   }
 }

@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID, Int } from 'type-graphql'
 import { TransactionModel } from './transaction.model'
-import { CategoryColorEnum } from './category.model'
+import { CategoryColorEnum, CategoryIconEnum } from './category.model'
 
 @ObjectType()
 export class CategorySummaryItem {
@@ -9,6 +9,9 @@ export class CategorySummaryItem {
 
   @Field(() => String)
   title: string
+
+  @Field(() => CategoryIconEnum)
+  icon: CategoryIconEnum
 
   @Field(() => CategoryColorEnum)
   color: CategoryColorEnum
