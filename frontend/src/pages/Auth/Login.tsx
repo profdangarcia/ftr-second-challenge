@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { Mail, Lock } from "lucide-react"
 import { useAuthStore } from "@/stores/auth"
 import { toast } from "sonner"
 
@@ -52,28 +52,26 @@ export function Login() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="seu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="email">Senha</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="********"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+            <Input
+              label="Email"
+              icon={<Mail className="size-4" />}
+              id="email"
+              type="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Input
+              label="Senha"
+              icon={<Lock className="size-4" />}
+              id="password"
+              type="password"
+              placeholder="********"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <Button type="submit" className="w-full" disabled={loading}>
               Entrar
             </Button>

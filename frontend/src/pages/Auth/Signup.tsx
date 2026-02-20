@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { User, Mail, Lock } from "lucide-react"
 import { useAuthStore } from "@/stores/auth"
 import { toast } from "sonner"
 
@@ -53,38 +53,35 @@ export function Signup() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Nome</Label>
-              <Input
-                id="name"
-                placeholder="Seu nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="email@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="*******"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+            <Input
+              label="Nome"
+              icon={<User className="size-4" />}
+              id="name"
+              placeholder="Seu nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Input
+              label="Email"
+              icon={<Mail className="size-4" />}
+              id="email"
+              type="email"
+              placeholder="email@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Input
+              label="Senha"
+              icon={<Lock className="size-4" />}
+              id="password"
+              type="password"
+              placeholder="*******"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <Button type="submit" className="w-full" disabled={loading}>
               Cadastrar
             </Button>
