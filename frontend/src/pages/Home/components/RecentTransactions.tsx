@@ -8,7 +8,7 @@ import {
   CATEGORY_ICON_COMPONENTS,
   type CategoryIconId,
 } from "@/helpers/categoryIcons"
-import { CircleArrowDownIcon, CircleArrowUpIcon, Plus, ReceiptText } from "lucide-react"
+import { ChevronRight, CircleArrowDownIcon, CircleArrowUpIcon, Plus, ReceiptText } from "lucide-react"
 import type { CategorySummaryItem } from "./CategorySummary"
 
 export interface RecentTransactionItem {
@@ -41,8 +41,10 @@ export function RecentTransactions({
         <h2 className="text-[0.75rem] font-medium uppercase tracking-wide text-gray-500">
           Transações recentes
         </h2>
-        <Button variant="link" className="p-0 text-brand-base" asChild>
-          <Link to="/transacoes">Ver todas &gt;</Link>
+        <Button variant="link" className="p-0 text-brand-base" asChild size="sm">
+          <Link to="/transacoes">
+            Ver todas <ChevronRight />
+          </Link>
         </Button>
       </CardHeader>
       <CardContent className="pt-2 pb-2">
@@ -69,7 +71,7 @@ export function RecentTransactions({
                 >
                   <Badge
                     variant={variant}
-                    icon={<IconComponent className="size-4" />}
+                    icon={<IconComponent />}
                     className="h-10 w-10 shrink-0"
                   />
                   <div className="min-w-0 flex-1">
@@ -107,7 +109,7 @@ export function RecentTransactions({
             })}
           </ul>
         )}
-        <Button variant="link" className="mt-2 w-full" onClick={() => {}}>
+        <Button variant="link" className="mb-2 mt-4 w-full" onClick={() => {}} size="sm">
           <Plus /> Nova transação
         </Button>
       </CardContent>

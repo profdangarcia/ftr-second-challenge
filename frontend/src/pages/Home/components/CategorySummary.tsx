@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge, getBadgeVariantFromColor } from "@/components/ui/badge"
 import { formatCurrency } from "@/lib/utils"
 import { cn } from "@/lib/utils"
+import { ChevronRight } from "lucide-react"
 
 export interface CategorySummaryItem {
   categoryId: string
@@ -29,8 +30,10 @@ export function CategorySummary({
         <h2 className="text-[0.75rem] font-medium uppercase tracking-wide text-gray-500">
           Categorias
         </h2>
-        <Button variant="link" className="p-0 text-brand-base" asChild>
-          <Link to="/categorias">Gerenciar &gt;</Link>
+        <Button variant="link" className="p-0 text-brand-base" asChild size="sm">
+          <Link to="/categorias">
+            Gerenciar <ChevronRight />
+          </Link>
         </Button>
       </CardHeader>
       <CardContent className="pt-4">
