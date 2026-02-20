@@ -5,6 +5,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/**
+ * Formata um valor numérico como Real brasileiro (R$ X.XXX,XX).
+ * @param value Valor em reais (ex.: 12847.32). Se o backend enviar em centavos, passe value / 100.
+ */
+export function formatCurrency(value: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value)
+}
+
 export function formatRelativeDate(date: Date | string): string {
   const now = new Date()
   const past = new Date(date)
