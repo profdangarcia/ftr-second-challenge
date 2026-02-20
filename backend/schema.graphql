@@ -9,8 +9,19 @@ type AuthOutput {
   user: UserModel!
 }
 
+"""Cor da categoria (paleta)"""
+enum CategoryColor {
+  BLUE
+  GREEN
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  YELLOW
+}
+
 type CategoryModel {
-  color: String!
+  color: CategoryColor!
   createdAt: String!
   description: String
   icon: String!
@@ -21,7 +32,7 @@ type CategoryModel {
 }
 
 input CreateCategoryInput {
-  color: String!
+  color: CategoryColor!
   description: String
   icon: String!
   title: String!
@@ -88,7 +99,7 @@ enum TransactionType {
 }
 
 input UpdateCategoryInput {
-  color: String
+  color: CategoryColor
   description: String
   icon: String
   title: String

@@ -10,12 +10,12 @@ const DEFAULT_USER = {
 }
 
 const DEFAULT_CATEGORIES = [
-  { title: 'Alimentação', description: 'Supermercado, restaurantes, delivery', icon: 'utensils', color: '#22c55e' },
-  { title: 'Transporte', description: 'Combustível, Uber, ônibus', icon: 'car', color: '#3b82f6' },
-  { title: 'Lazer', description: 'Cinema, streaming, passeios', icon: 'ticket', color: '#a855f7' },
-  { title: 'Saúde', description: 'Farmácia, consultas, plano de saúde', icon: 'heart', color: '#ec4899' },
-  { title: 'Casa', description: 'Contas, manutenção, decoração', icon: 'home', color: '#f97316' },
-  { title: 'Educação', description: 'Cursos, livros, materiais', icon: 'book-open', color: '#eab308' },
+  { title: 'Alimentação', description: 'Supermercado, restaurantes, delivery', icon: 'utensils', color: 'GREEN' as const },
+  { title: 'Transporte', description: 'Combustível, Uber, ônibus', icon: 'car', color: 'BLUE' as const },
+  { title: 'Lazer', description: 'Cinema, streaming, passeios', icon: 'ticket', color: 'PURPLE' as const },
+  { title: 'Saúde', description: 'Farmácia, consultas, plano de saúde', icon: 'heart', color: 'PINK' as const },
+  { title: 'Casa', description: 'Contas, manutenção, decoração', icon: 'home', color: 'ORANGE' as const },
+  { title: 'Educação', description: 'Cursos, livros, materiais', icon: 'book-open', color: 'YELLOW' as const },
 ]
 
 /** Transações de exemplo: { categoryTitle, type, description, dateISO, valueCentavos } */

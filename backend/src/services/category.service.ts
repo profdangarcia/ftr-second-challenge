@@ -2,6 +2,7 @@ import { GraphQLError } from 'graphql'
 import { prismaClient } from '../../prisma/prisma'
 import type { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input'
 import type { CategoryModel } from '../models/category.model'
+import type { CategoryColorEnum } from '../models/category.model'
 
 function toCategoryModel(category: {
   id: string
@@ -19,7 +20,7 @@ function toCategoryModel(category: {
     title: category.title,
     description: category.description ?? null,
     icon: category.icon,
-    color: category.color,
+    color: category.color as CategoryColorEnum,
     createdAt: category.createdAt.toISOString(),
     updatedAt: category.updatedAt.toISOString(),
   }

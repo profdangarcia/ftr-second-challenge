@@ -21,13 +21,23 @@ model User {
   transactions Transaction[]
 }
 
+enum CategoryColor {
+  BLUE
+  PURPLE
+  PINK
+  RED
+  ORANGE
+  YELLOW
+  GREEN
+}
+
 model Category {
   id            String        @id @default(uuid())
   userId        String
   title         String
   description   String?
   icon          String
-  color         String
+  color         CategoryColor
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
