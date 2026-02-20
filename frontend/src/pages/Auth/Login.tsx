@@ -66,39 +66,32 @@ export function Login() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <div>
-              <label
-                htmlFor="password"
-                className="mb-2 block text-sm font-medium leading-none text-gray-700"
+            <div className="relative">
+              <Input
+                label="Senha"
+                icon={<Lock className="size-4" />}
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Digite sua senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="pr-12"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="absolute right-1 top-[3.375rem] h-8 w-8 -translate-y-1/2 border-0 bg-transparent shadow-none text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
               >
-                Senha
-              </label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Digite sua senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  icon={<Lock className="size-4" />}
-                  required
-                  className="pr-12"
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 border-0 bg-transparent shadow-none text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                >
-                  {showPassword ? (
-                    <EyeOff className="size-4" />
-                  ) : (
-                    <Eye className="size-4" />
-                  )}
-                </Button>
-              </div>
+                {showPassword ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
+              </Button>
             </div>
             <div className="flex items-center justify-between">
               <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
