@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { useTransactionDialogStore } from "@/stores/transactionDialog"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge, getBadgeVariantFromColor } from "@/components/ui/badge"
@@ -109,7 +110,12 @@ export function RecentTransactions({
             })}
           </ul>
         )}
-        <Button variant="link" className="mb-2 mt-4 w-full" onClick={() => {}} size="sm">
+        <Button
+          variant="link"
+          className="mb-2 mt-4 w-full"
+          onClick={() => useTransactionDialogStore.getState().openForCreate()}
+          size="sm"
+        >
           <Plus /> Nova transação
         </Button>
       </CardContent>

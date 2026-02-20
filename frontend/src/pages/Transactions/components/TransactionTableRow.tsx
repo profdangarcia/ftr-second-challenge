@@ -8,6 +8,7 @@ import { formatCurrency, formatShortDate } from "@/lib/utils"
 import { CATEGORY_ICON_COMPONENTS, type CategoryIconId } from "@/helpers/categoryIcons"
 import type { TransactionItemGql } from "@/lib/graphql/queries/ListMyTransactions"
 import type { CategoryGql } from "@/lib/graphql/queries/ListMyCategories"
+import { useTransactionDialogStore } from "@/stores/transactionDialog"
 import {
   CircleArrowDownIcon,
   CircleArrowUpIcon,
@@ -23,6 +24,7 @@ export interface TransactionTableRowProps {
 }
 
 export function TransactionTableRow({ transaction: tx, category }: TransactionTableRowProps) {
+  const openForEdit = useTransactionDialogStore((s) => s.openForEdit)
   const isIncome = tx.type === "INCOME"
   const variant = getBadgeVariantFromColor(category?.color ?? "default")
   const IconComponent =
@@ -88,7 +90,7 @@ export function TransactionTableRow({ transaction: tx, category }: TransactionTa
             variant="outline"
             size="icon"
             aria-label="Editar"
-            onClick={() => {}}
+            onClick={() => openForEdit(tx)}
           >
             <Pencil className="text-gray-700" />
           </Button>

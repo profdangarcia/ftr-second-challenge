@@ -5,7 +5,8 @@ import { PageTitle } from "@/components/PageTitle"
 import { Button } from "@/components/ui/button"
 import { SearchForm, type TransactionFilters } from "./components/SearchForm"
 import { TransactionsTable } from "./components/TransactionsTable"
-import { LIST_MY_CATEGORIES, type ListMyCategoriesQuery } from "@/lib/graphql/queries/ListMyCategories"
+import { useCategoriesStore } from "@/stores/categories"
+import { useTransactionDialogStore } from "@/stores/transactionDialog"
 import {
   LIST_MY_TRANSACTIONS,
   type ListMyTransactionsQuery,
@@ -27,8 +28,12 @@ export function Transactions() {
   const [filters, setFilters] = useState<TransactionFilters>(defaultFilters)
   const [page, setPage] = useState(1)
 
-  const { data: categoriesData } = useQuery<ListMyCategoriesQuery>(LIST_MY_CATEGORIES)
-  const categories = categoriesData?.listMyCategories ?? []
+  const { categories, fetchCategories } = useCategoriesStore()
+  const openForCreate = useTransactionDialogStore((s) => s.openForCreate)
+
+  useEffect(() => {
+    if (categories.length === 0) fetchCategories()
+  }, [categories.length, fetchCategories])
 
   const { startDate, endDate } = periodToStartEnd(filters.period)
   const variables: ListMyTransactionsVariables = {
@@ -61,7 +66,7 @@ export function Transactions() {
             title="Transações"
             description="Gerencie todas as suas transações financeiras"
           />
-          <Button size="sm">
+          <Button size="sm" onClick={openForCreate}>
             <Plus className="size-4" />
             Nova transação
           </Button>
