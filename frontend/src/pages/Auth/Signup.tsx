@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react"
 import { useAuthStore } from "@/stores/auth"
+import { getGraphQLMessage } from "@/lib/utils"
 import { toast } from "sonner"
 
 import fullLogo from "@/assets/full_logo.svg"
@@ -32,8 +33,8 @@ export function Signup() {
       if (ok) {
         toast.success("Cadastro realizado com sucesso!")
       }
-    } catch {
-      toast.error("Erro ao realizar o cadastro")
+    } catch (error) {
+      toast.error(getGraphQLMessage(error))
     } finally {
       setLoading(false)
     }

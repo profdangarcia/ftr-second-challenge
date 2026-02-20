@@ -32,3 +32,15 @@ export function formatRelativeDate(date: Date | string): string {
 
   return `Há ${diffInDays} ${diffInDays === 1 ? "dia" : "dias"}`
 }
+
+/** Extrai a primeira mensagem de erro de uma resposta GraphQL/Apollo. */
+export function getGraphQLMessage(error: unknown): string {
+  const obj = error as { graphQLErrors?: Array<{ message?: string }>; message?: string } | null
+  if (obj?.graphQLErrors?.[0]?.message) {
+    return obj.graphQLErrors[0].message
+  }
+  if (obj?.message && typeof obj.message === "string") {
+    return obj.message
+  }
+  return "Erro ao conectar. Tente novamente."
+}

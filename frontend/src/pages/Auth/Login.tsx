@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { Mail, Lock, Eye, EyeOff, UserPlus } from "lucide-react"
 import { useAuthStore } from "@/stores/auth"
+import { getGraphQLMessage } from "@/lib/utils"
 import { toast } from "sonner"
 
 import fullLogo from "@/assets/full_logo.svg"
@@ -31,8 +32,8 @@ export function Login() {
       if (ok) {
         toast.success("Login realizado com sucesso!")
       }
-    } catch {
-      toast.error("Falha ao realizar o login!")
+    } catch (error) {
+      toast.error(getGraphQLMessage(error))
     } finally {
       setLoading(false)
     }
