@@ -7,12 +7,31 @@ interface SummaryCardProps {
   icon: React.ReactNode
   /** Texto do label em maiúsculas (ex.: "SALDO TOTAL") */
   text: string
-  /** Valor monetário em reais (ex.: 12847.32). Para valor em centavos, passe value / 100 */
-  value: number
+  /** Valor monetário em reais (ex.: 12847.32). Para valor em centavos, passe value / 100. Quando null/undefined, exibe texto de "sem dados". */
+  value?: number | null
+  /** Texto exibido quando não houver valor (default: "Nenhum dado") */
+  emptyLabel?: string
+  /** Exibe "Carregando..." no lugar do valor */
+  loading?: boolean
   className?: string
 }
 
-export function SummaryCard({ icon, text, value, className }: SummaryCardProps) {
+export function SummaryCard({
+  icon,
+  text,
+  value,
+  emptyLabel = "Nenhum dado",
+  loading = false,
+  className,
+}: SummaryCardProps) {
+  const hasValue = value != null
+
+  const displayText = loading
+    ? "Carregando..."
+    : hasValue
+      ? formatCurrency(value)
+      : emptyLabel
+
   return (
     <Card className={cn("rounded-xl w-full", className)}>
       <CardContent className="p-6">
@@ -23,7 +42,7 @@ export function SummaryCard({ icon, text, value, className }: SummaryCardProps) 
           <span>{text}</span>
         </div>
         <p className="mt-2 text-[1.75rem] font-bold leading-tight text-gray-800">
-          {formatCurrency(value)}
+          {displayText}
         </p>
       </CardContent>
     </Card>
