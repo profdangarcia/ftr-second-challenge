@@ -10,6 +10,9 @@
       './src/**/*.{ts,tsx}',
     ],
     theme: {
+    	fontFamily: {
+    		sans: ['Inter', 'system-ui', 'sans-serif'],
+    	},
     	container: {
     		center: true,
     		padding: '2rem',
