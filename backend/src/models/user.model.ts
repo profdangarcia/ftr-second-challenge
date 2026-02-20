@@ -11,9 +11,6 @@ export class UserModel {
   @Field(() => String)
   email: string
 
-  @Field(() => String, { nullable: true })
-  role?: string | null
-
   @Field(() => String)
   createdAt: string
 

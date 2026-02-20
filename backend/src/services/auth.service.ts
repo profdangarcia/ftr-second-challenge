@@ -17,7 +17,6 @@ function toUserModel(user: {
     id: user.id,
     name: user.name,
     email: user.email,
-    role: null,
     createdAt: user.createdAt.toISOString(),
     updatedAt: user.updatedAt.toISOString(),
   }
@@ -52,7 +51,8 @@ export async function login(data: LoginInput): Promise<AuthOutput> {
   const user = await prismaClient.user.findUnique({
     where: { email: data.email },
   })
-  if (!user || !comparePassword(data.password, user.password)) {
+  const passwordMatch = user ? await comparePassword(data.password, user.password) : false
+  if (!user || !passwordMatch) {
     throw new GraphQLError('Credenciais inválidas.', {
       extensions: { code: 'UNAUTHENTICATED' },
     })

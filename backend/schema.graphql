@@ -122,6 +122,5 @@ type UserModel {
   email: String!
   id: ID!
   name: String!
-  role: String
   updatedAt: String!
 }
