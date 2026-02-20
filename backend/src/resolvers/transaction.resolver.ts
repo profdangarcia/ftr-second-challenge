@@ -1,5 +1,5 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql'
-import { CreateTransactionInput } from '../dtos/input/transaction.input'
+import { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input'
 import { GraphqlContext } from '../graphql/context'
 import { TransactionModel } from '../models/transaction.model'
 import { TransactionTypeEnum } from '../models/transaction.model'
@@ -16,6 +16,17 @@ export class TransactionResolver {
   ): Promise<TransactionModel> {
     const userId = context.user!
     return transactionService.create(data, userId)
+  }
+
+  @Mutation(() => TransactionModel)
+  @UseMiddleware(IsAuth)
+  async updateTransaction(
+    @Arg('id', () => String) id: string,
+    @Arg('data', () => UpdateTransactionInput) data: UpdateTransactionInput,
+    @Ctx() context: GraphqlContext
+  ): Promise<TransactionModel> {
+    const userId = context.user!
+    return transactionService.update(id, userId, data)
   }
 
   @Query(() => [TransactionModel])

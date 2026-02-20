@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql'
 import { prismaClient } from '../../prisma/prisma'
-import type { CreateTransactionInput } from '../dtos/input/transaction.input'
+import type { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input'
 import type { TransactionModel } from '../models/transaction.model'
 import { TransactionTypeEnum } from '../models/transaction.model'
 
@@ -61,6 +61,48 @@ export async function create(data: CreateTransactionInput, userId: string): Prom
       date,
       value,
     },
+  })
+  return toTransactionModel(transaction)
+}
+
+export async function update(
+  transactionId: string,
+  userId: string,
+  data: UpdateTransactionInput
+): Promise<TransactionModel> {
+  const existing = await prismaClient.transaction.findFirst({
+    where: { id: transactionId, userId },
+  })
+  if (!existing) {
+    throw new GraphQLError('Transação não encontrada.', {
+      extensions: { code: 'NOT_FOUND' },
+    })
+  }
+  if (data.categoryId != null) {
+    const category = await prismaClient.category.findFirst({
+      where: { id: data.categoryId, userId },
+    })
+    if (!category) {
+      throw new GraphQLError('Categoria não encontrada ou não pertence ao usuário.', {
+        extensions: { code: 'BAD_USER_INPUT' },
+      })
+    }
+  }
+  const updateData: Record<string, unknown> = {}
+  if (data.categoryId !== undefined) updateData.categoryId = data.categoryId
+  if (data.type !== undefined) updateData.type = data.type
+  if (data.description !== undefined) updateData.description = data.description
+  if (data.date !== undefined) {
+    const date = new Date(data.date)
+    if (Number.isNaN(date.getTime())) {
+      throw new GraphQLError('Data inválida.', { extensions: { code: 'BAD_USER_INPUT' } })
+    }
+    updateData.date = date
+  }
+  if (data.value !== undefined) updateData.value = Math.abs(Math.round(data.value))
+  const transaction = await prismaClient.transaction.update({
+    where: { id: transactionId },
+    data: updateData,
   })
   return toTransactionModel(transaction)
 }

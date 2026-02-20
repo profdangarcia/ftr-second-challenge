@@ -2,7 +2,7 @@ import { GraphQLError } from 'graphql'
 import { prismaClient } from '../../prisma/prisma'
 import { hashPassword, comparePassword } from '../utils/hash'
 import { signJwt } from '../utils/jwt'
-import type { RegisterInput, LoginInput } from '../dtos/input/auth.input'
+import type { RegisterInput, LoginInput, UpdateProfileInput } from '../dtos/input/auth.input'
 import type { AuthOutput } from '../dtos/output/auth.output'
 import type { UserModel } from '../models/user.model'
 
@@ -63,4 +63,12 @@ export async function login(data: LoginInput): Promise<AuthOutput> {
     refreshToken: token,
     user: toUserModel(user),
   }
+}
+
+export async function updateProfile(userId: string, data: UpdateProfileInput): Promise<UserModel> {
+  const user = await prismaClient.user.update({
+    where: { id: userId },
+    data: { name: data.name },
+  })
+  return toUserModel(user)
 }

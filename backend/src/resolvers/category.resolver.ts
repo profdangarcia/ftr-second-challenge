@@ -1,5 +1,5 @@
 import { Arg, Ctx, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql'
-import { CreateCategoryInput } from '../dtos/input/category.input'
+import { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input'
 import { GraphqlContext } from '../graphql/context'
 import { CategoryModel } from '../models/category.model'
 import { IsAuth } from '../middlewares/auth.middleware'
@@ -15,6 +15,17 @@ export class CategoryResolver {
   ): Promise<CategoryModel> {
     const userId = context.user!
     return categoryService.create(data, userId)
+  }
+
+  @Mutation(() => CategoryModel)
+  @UseMiddleware(IsAuth)
+  async updateCategory(
+    @Arg('id', () => String) id: string,
+    @Arg('data', () => UpdateCategoryInput) data: UpdateCategoryInput,
+    @Ctx() context: GraphqlContext
+  ): Promise<CategoryModel> {
+    const userId = context.user!
+    return categoryService.update(id, userId, data)
   }
 
   @Query(() => [CategoryModel])

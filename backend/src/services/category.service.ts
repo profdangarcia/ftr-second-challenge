@@ -1,5 +1,6 @@
+import { GraphQLError } from 'graphql'
 import { prismaClient } from '../../prisma/prisma'
-import type { CreateCategoryInput } from '../dtos/input/category.input'
+import type { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input'
 import type { CategoryModel } from '../models/category.model'
 
 function toCategoryModel(category: {
@@ -33,6 +34,31 @@ export async function create(data: CreateCategoryInput, userId: string): Promise
       icon: data.icon,
       color: data.color,
     },
+  })
+  return toCategoryModel(category)
+}
+
+export async function update(
+  categoryId: string,
+  userId: string,
+  data: UpdateCategoryInput
+): Promise<CategoryModel> {
+  const existing = await prismaClient.category.findFirst({
+    where: { id: categoryId, userId },
+  })
+  if (!existing) {
+    throw new GraphQLError('Categoria não encontrada.', {
+      extensions: { code: 'NOT_FOUND' },
+    })
+  }
+  const updateData: Record<string, unknown> = {}
+  if (data.title !== undefined) updateData.title = data.title
+  if (data.description !== undefined) updateData.description = data.description
+  if (data.icon !== undefined) updateData.icon = data.icon
+  if (data.color !== undefined) updateData.color = data.color
+  const category = await prismaClient.category.update({
+    where: { id: categoryId },
+    data: updateData,
   })
   return toCategoryModel(category)
 }
