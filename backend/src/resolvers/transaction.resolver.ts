@@ -29,6 +29,16 @@ export class TransactionResolver {
     return transactionService.update(id, userId, data)
   }
 
+  @Mutation(() => Boolean)
+  @UseMiddleware(IsAuth)
+  async deleteTransaction(
+    @Arg('id', () => String) id: string,
+    @Ctx() context: GraphqlContext
+  ): Promise<boolean> {
+    const userId = context.user!
+    return transactionService.remove(id, userId)
+  }
+
   @Query(() => [TransactionModel])
   @UseMiddleware(IsAuth)
   async listMyTransactions(

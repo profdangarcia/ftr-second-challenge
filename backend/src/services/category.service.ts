@@ -63,6 +63,19 @@ export async function update(
   return toCategoryModel(category)
 }
 
+export async function remove(categoryId: string, userId: string): Promise<boolean> {
+  const existing = await prismaClient.category.findFirst({
+    where: { id: categoryId, userId },
+  })
+  if (!existing) {
+    throw new GraphQLError('Categoria não encontrada.', {
+      extensions: { code: 'NOT_FOUND' },
+    })
+  }
+  await prismaClient.category.delete({ where: { id: categoryId } })
+  return true
+}
+
 export async function listByUser(userId: string): Promise<CategoryModel[]> {
   const categories = await prismaClient.category.findMany({
     where: { userId },

@@ -107,6 +107,19 @@ export async function update(
   return toTransactionModel(transaction)
 }
 
+export async function remove(transactionId: string, userId: string): Promise<boolean> {
+  const existing = await prismaClient.transaction.findFirst({
+    where: { id: transactionId, userId },
+  })
+  if (!existing) {
+    throw new GraphQLError('Transação não encontrada.', {
+      extensions: { code: 'NOT_FOUND' },
+    })
+  }
+  await prismaClient.transaction.delete({ where: { id: transactionId } })
+  return true
+}
+
 export async function listByUser(
   userId: string,
   filters: TransactionFilters,

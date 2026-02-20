@@ -28,6 +28,16 @@ export class CategoryResolver {
     return categoryService.update(id, userId, data)
   }
 
+  @Mutation(() => Boolean)
+  @UseMiddleware(IsAuth)
+  async deleteCategory(
+    @Arg('id', () => String) id: string,
+    @Ctx() context: GraphqlContext
+  ): Promise<boolean> {
+    const userId = context.user!
+    return categoryService.remove(id, userId)
+  }
+
   @Query(() => [CategoryModel])
   @UseMiddleware(IsAuth)
   async listMyCategories(@Ctx() context: GraphqlContext): Promise<CategoryModel[]> {
