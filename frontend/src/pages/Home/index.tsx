@@ -9,7 +9,9 @@ import { CircleArrowDownIcon, CircleArrowUpIcon, WalletIcon } from "lucide-react
 const CENTAVOS_TO_REAIS = 1 / 100
 
 export function Home() {
-  const { data, loading, error } = useQuery<GetDashboardDataQuery>(GET_DASHBOARD_DATA)
+  const { data, loading, error } = useQuery<GetDashboardDataQuery>(GET_DASHBOARD_DATA, {
+    fetchPolicy: "cache-and-network",
+  })
 
   const dashboard = data?.getDashboardData
   const totalBalanceReais =

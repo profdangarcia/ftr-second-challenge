@@ -22,11 +22,10 @@ import { useTransactionDialogStore } from "@/stores/transactionDialog"
 import { useCategoriesStore } from "@/stores/categories"
 import { CREATE_TRANSACTION, type CreateTransactionInput } from "@/lib/graphql/mutations/CreateTransaction"
 import { UPDATE_TRANSACTION, type UpdateTransactionInput } from "@/lib/graphql/mutations/UpdateTransaction"
+import { evictTransactionDependentQueries } from "@/lib/graphql/evictTransactionQueries"
 import { CircleArrowDownIcon, CircleArrowUpIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { getGraphQLMessage } from "@/lib/utils"
-
-const REFETCH_QUERIES: string[] = ["GetDashboardData", "ListMyTransactions"]
 
 export function TransactionDialog() {
   const { open, mode, transaction, close } = useTransactionDialogStore()
@@ -39,10 +38,14 @@ export function TransactionDialog() {
   const [categoryId, setCategoryId] = useState("")
 
   const [createTransaction, { loading: creating }] = useMutation(CREATE_TRANSACTION, {
-    refetchQueries: REFETCH_QUERIES,
+    update(cache) {
+      evictTransactionDependentQueries(cache)
+    },
   })
   const [updateTransaction, { loading: updating }] = useMutation(UPDATE_TRANSACTION, {
-    refetchQueries: REFETCH_QUERIES,
+    update(cache) {
+      evictTransactionDependentQueries(cache)
+    },
   })
 
   const loading = creating || updating

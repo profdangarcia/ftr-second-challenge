@@ -59,7 +59,10 @@ export function Transactions() {
   const { data: transactionsData } = useQuery<
     ListMyTransactionsQuery,
     ListMyTransactionsVariables
-  >(LIST_MY_TRANSACTIONS, { variables })
+  >(LIST_MY_TRANSACTIONS, {
+    variables,
+    fetchPolicy: "cache-and-network",
+  })
 
   const items = transactionsData?.listMyTransactions?.items ?? []
   const total = transactionsData?.listMyTransactions?.total ?? 0
