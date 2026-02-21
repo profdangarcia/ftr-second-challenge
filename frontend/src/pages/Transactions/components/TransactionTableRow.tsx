@@ -21,9 +21,10 @@ import { cn } from "@/lib/utils"
 export interface TransactionTableRowProps {
   transaction: TransactionItemGql
   category?: CategoryGql
+  onDeleteClick: (transaction: TransactionItemGql) => void
 }
 
-export function TransactionTableRow({ transaction: tx, category }: TransactionTableRowProps) {
+export function TransactionTableRow({ transaction: tx, category, onDeleteClick }: TransactionTableRowProps) {
   const openForEdit = useTransactionDialogStore((s) => s.openForEdit)
   const isIncome = tx.type === "INCOME"
   const variant = getBadgeVariantFromColor(category?.color ?? "default")
@@ -81,7 +82,7 @@ export function TransactionTableRow({ transaction: tx, category }: TransactionTa
             variant="outline"
             size="icon"
             aria-label="Excluir"
-            onClick={() => {}}
+            onClick={() => onDeleteClick(tx)}
           >
             <Trash2 className="text-danger" />
           </Button>

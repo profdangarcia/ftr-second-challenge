@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
-import { useQuery } from "@apollo/client/react"
+import { useQuery, useMutation } from "@apollo/client/react"
+import { toast } from "sonner"
 import { Page } from "@/components/Page"
 import { PageTitle } from "@/components/PageTitle"
 import { Button } from "@/components/ui/button"
+import { ConfirmDialog } from "@/components/ConfirmDialog"
 import { SearchForm, type TransactionFilters } from "./components/SearchForm"
 import { TransactionsTable } from "./components/TransactionsTable"
 import { useCategoriesStore } from "@/stores/categories"
@@ -12,7 +14,13 @@ import {
   type ListMyTransactionsQuery,
   type ListMyTransactionsVariables,
 } from "@/lib/graphql/queries/ListMyTransactions"
+import {
+  DELETE_TRANSACTION,
+  DELETE_TRANSACTION_OPTIONS,
+} from "@/lib/graphql/mutations/DeleteTransaction"
+import type { TransactionItemGql } from "@/lib/graphql/queries/ListMyTransactions"
 import { getCurrentPeriodValue, periodToStartEnd } from "./utils/periodOptions"
+import { getGraphQLMessage } from "@/lib/utils"
 import { Plus } from "lucide-react"
 
 const defaultFilters: TransactionFilters = {
@@ -27,9 +35,11 @@ const PAGE_SIZE = 10
 export function Transactions() {
   const [filters, setFilters] = useState<TransactionFilters>(defaultFilters)
   const [page, setPage] = useState(1)
+  const [transactionToDelete, setTransactionToDelete] = useState<TransactionItemGql | null>(null)
 
   const { categories, fetchCategories } = useCategoriesStore()
   const openForCreate = useTransactionDialogStore((s) => s.openForCreate)
+  const [deleteTransaction, { loading: deleting }] = useMutation(DELETE_TRANSACTION, DELETE_TRANSACTION_OPTIONS)
 
   useEffect(() => {
     if (categories.length === 0) fetchCategories()
@@ -58,6 +68,17 @@ export function Transactions() {
     setPage(1)
   }, [filters.search, filters.type, filters.categoryId, filters.period])
 
+  const handleConfirmDelete = async () => {
+    if (!transactionToDelete) return
+    try {
+      await deleteTransaction({ variables: { id: transactionToDelete.id } })
+      toast.success("Transação excluída.")
+    } catch (err) {
+      toast.error(getGraphQLMessage(err))
+      throw err
+    }
+  }
+
   return (
     <Page>
       <div className="flex flex-col gap-6">
@@ -83,8 +104,19 @@ export function Transactions() {
           page={page}
           pageSize={PAGE_SIZE}
           onPageChange={setPage}
+          onDeleteClick={setTransactionToDelete}
         />
       </div>
+      <ConfirmDialog
+        open={transactionToDelete !== null}
+        onOpenChange={(open) => !open && setTransactionToDelete(null)}
+        title="Excluir transação"
+        description="Esta ação não pode ser desfeita. Deseja realmente excluir esta transação?"
+        confirmLabel="Excluir"
+        variant="destructive"
+        loading={deleting}
+        onConfirm={handleConfirmDelete}
+      />
     </Page>
   )
 }

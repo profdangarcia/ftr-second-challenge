@@ -15,6 +15,7 @@ export interface TransactionsTableProps {
   page: number
   pageSize?: number
   onPageChange: (page: number) => void
+  onDeleteClick: (transaction: TransactionItemGql) => void
 }
 
 export function TransactionsTable({
@@ -24,6 +25,7 @@ export function TransactionsTable({
   page,
   pageSize = PAGE_SIZE,
   onPageChange,
+  onDeleteClick,
 }: TransactionsTableProps) {
   const categoryById = new Map(categories.map((c) => [c.id, c]))
 
@@ -47,6 +49,7 @@ export function TransactionsTable({
                 key={tx.id}
                 transaction={tx}
                 category={categoryById.get(tx.categoryId)}
+                onDeleteClick={onDeleteClick}
               />
             ))
           )}
