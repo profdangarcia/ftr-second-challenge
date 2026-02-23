@@ -100,16 +100,13 @@ export function Login() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                  className="h-4 w-4 rounded border-gray-200 text-primary focus:ring-primary"
                 />
                 Lembrar-me
               </label>
-              <Link
-                to="/recuperar-senha"
-                className="text-sm font-medium text-primary hover:underline"
-              >
+              <Button variant="link">
                 Recuperar senha
-              </Link>
+              </Button>
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
               Entrar
