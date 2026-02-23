@@ -5,6 +5,7 @@ export const LIST_MY_CATEGORIES = gql`
     listMyCategories {
       id
       title
+      description
       color
       icon
       transactionCount
@@ -15,6 +16,7 @@ export const LIST_MY_CATEGORIES = gql`
 export interface CategoryGql {
   id: string
   title: string
+  description?: string | null
   color: string
   icon: string
   transactionCount: number

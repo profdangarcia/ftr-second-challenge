@@ -2,7 +2,9 @@ import { useEffect, useMemo } from "react"
 import { Page } from "@/components/Page"
 import { PageTitle } from "@/components/PageTitle"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { CategoryInfoCard } from "./components/CategoryInfoCard"
+import { CategoryCard } from "./components/CategoryCard"
 import { useCategoriesStore } from "@/stores/categories"
 import { getCategoryStats } from "@/helpers/categoryStats"
 import { CATEGORY_ICON_COMPONENTS, type CategoryIconId } from "@/helpers/categoryIcons"
@@ -63,6 +65,17 @@ export function Categories() {
             secondaryText="CATEGORIA MAIS UTILIZADA"
           />
         </div>
+        {categories.length === 0 ? (
+          <Card className="rounded-xl py-12 text-center">
+            <p className="text-sm text-gray-500">Nenhuma categoria encontrada.</p>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {categories.map((category) => (
+              <CategoryCard key={category.id} category={category} />
+            ))}
+          </div>
+        )}
       </div>
     </Page>
   )
