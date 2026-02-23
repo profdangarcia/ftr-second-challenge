@@ -105,18 +105,21 @@ function DialogCloseButton({
   ...props
 }: React.ComponentProps<"button">) {
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      className={cn(
-        "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none",
-        className
-      )}
-      {...props}
-    >
-      <X className="h-4 w-4 text-gray-500" />
-      <span className="sr-only">Fechar</span>
-    </Button>
+    <DialogPrimitive.Close asChild>
+      <Button
+        variant="outline"
+        size="icon"
+        type="button"
+        className={cn(
+          "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none",
+          className
+        )}
+        {...props}
+      >
+        <X className="h-4 w-4 text-gray-500" />
+        <span className="sr-only">Fechar</span>
+      </Button>
+    </DialogPrimitive.Close>
   )
 }
 
