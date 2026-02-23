@@ -62,7 +62,14 @@ export function ConfirmDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2 sm:gap-0">
-          <Button type="button" variant="outline" onClick={handleCancel} disabled={loading}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleCancel}
+            disabled={loading}
+            className="min-w-24"
+            size="sm"
+          >
             {cancelLabel}
           </Button>
           <Button
@@ -70,10 +77,12 @@ export function ConfirmDialog({
             onClick={handleConfirm}
             disabled={loading}
             className={cn(
+              "min-w-24",
               variant === "destructive" &&
                 "bg-red-base text-white hover:bg-red-dark focus-visible:ring-red-base",
               confirmClassName
             )}
+            size="sm"
           >
             {loading ? "Aguarde..." : confirmLabel}
           </Button>
