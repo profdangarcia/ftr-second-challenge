@@ -1,19 +1,29 @@
+import { useEffect, useMemo } from "react"
 import { Page } from "@/components/Page"
 import { PageTitle } from "@/components/PageTitle"
 import { Button } from "@/components/ui/button"
 import { CategoryInfoCard } from "./components/CategoryInfoCard"
-import { ArrowUpDown, Plus, Tag, Utensils } from "lucide-react"
 import { useCategoriesStore } from "@/stores/categories"
-import { useEffect } from "react"
+import { getCategoryStats } from "@/helpers/categoryStats"
+import { CATEGORY_ICON_COMPONENTS, type CategoryIconId } from "@/helpers/categoryIcons"
+import { ArrowUpDown, Plus, Tag } from "lucide-react"
 
 export function Categories() {
-  const { categories, fetchCategories } = useCategoriesStore() 
+  const { categories, fetchCategories } = useCategoriesStore()
 
   useEffect(() => {
-    if(!categories.length) {
-      fetchCategories()
-    }
-  }, [categories.length, fetchCategories])
+    fetchCategories() 
+  }, [fetchCategories])
+
+  const { totalCategories, totalTransactions, mostUsedCategory } = useMemo(
+    () => getCategoryStats(categories),
+    [categories]
+  )
+
+  const MostUsedIcon =
+    mostUsedCategory && mostUsedCategory.icon in CATEGORY_ICON_COMPONENTS
+      ? CATEGORY_ICON_COMPONENTS[mostUsedCategory.icon as CategoryIconId]
+      : null
 
   return (
     <Page>
@@ -31,17 +41,25 @@ export function Categories() {
         <div className="flex gap-4">
           <CategoryInfoCard
             icon={<Tag className="text-gray-700" />}
-            primaryText={String(categories.length)}
+            primaryText={String(totalCategories)}
             secondaryText="TOTAL DE CATEGORIAS"
           />
           <CategoryInfoCard
             icon={<ArrowUpDown className="text-purple-base" />}
-            primaryText="27"
-            secondaryText="TOTAL DE TRANSACÕES"
+            primaryText={String(totalTransactions)}
+            secondaryText="TOTAL DE TRANSAÇÕES"
           />
           <CategoryInfoCard
-            icon={<Utensils className="text-blue-base" />}
-            primaryText="Alimentação"
+            icon={
+              MostUsedIcon ? (
+                <MostUsedIcon
+                  className={`text-${mostUsedCategory?.color?.toLowerCase()}-base`}
+                />
+              ) : (
+                <Tag className="text-gray-700" />
+              )
+            }
+            primaryText={mostUsedCategory?.title ?? "—"}
             secondaryText="CATEGORIA MAIS UTILIZADA"
           />
         </div>

@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from 'type-graphql'
+import { ObjectType, Field, ID, Int } from 'type-graphql'
 import { registerEnumType } from 'type-graphql'
 
 export enum CategoryColorEnum {
@@ -66,4 +66,7 @@ export class CategoryModel {
 
   @Field(() => String)
   updatedAt: string
+
+  @Field(() => Int, { description: 'Total de transações nesta categoria' })
+  transactionCount: number
 }

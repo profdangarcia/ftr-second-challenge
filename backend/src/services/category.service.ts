@@ -4,16 +4,19 @@ import type { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/cat
 import type { CategoryModel } from '../models/category.model'
 import type { CategoryColorEnum } from '../models/category.model'
 
-function toCategoryModel(category: {
-  id: string
-  userId: string
-  title: string
-  description: string | null
-  icon: string
-  color: string
-  createdAt: Date
-  updatedAt: Date
-}): CategoryModel {
+function toCategoryModel(
+  category: {
+    id: string
+    userId: string
+    title: string
+    description: string | null
+    icon: string
+    color: string
+    createdAt: Date
+    updatedAt: Date
+  },
+  transactionCount = 0
+): CategoryModel {
   return {
     id: category.id,
     userId: category.userId,
@@ -23,6 +26,7 @@ function toCategoryModel(category: {
     color: category.color as CategoryColorEnum,
     createdAt: category.createdAt.toISOString(),
     updatedAt: category.updatedAt.toISOString(),
+    transactionCount,
   }
 }
 
@@ -78,9 +82,21 @@ export async function remove(categoryId: string, userId: string): Promise<boolea
 }
 
 export async function listByUser(userId: string): Promise<CategoryModel[]> {
-  const categories = await prismaClient.category.findMany({
-    where: { userId },
-    orderBy: { createdAt: 'desc' },
-  })
-  return categories.map(toCategoryModel)
+  const [categories, countRows] = await Promise.all([
+    prismaClient.category.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+    }),
+    prismaClient.transaction.groupBy({
+      by: ['categoryId'],
+      where: { userId },
+      _count: { _all: true },
+    }),
+  ])
+  const countByCategoryId = new Map(
+    countRows.map((row) => [row.categoryId, row._count._all])
+  )
+  return categories.map((cat) =>
+    toCategoryModel(cat, countByCategoryId.get(cat.id) ?? 0)
+  )
 }

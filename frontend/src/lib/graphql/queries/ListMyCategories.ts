@@ -7,6 +7,7 @@ export const LIST_MY_CATEGORIES = gql`
       title
       color
       icon
+      transactionCount
     }
   }
 `
@@ -16,6 +17,7 @@ export interface CategoryGql {
   title: string
   color: string
   icon: string
+  transactionCount: number
 }
 
 export interface ListMyCategoriesQuery {

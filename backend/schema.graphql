@@ -47,6 +47,9 @@ type CategoryModel {
   icon: CategoryIcon!
   id: ID!
   title: String!
+
+  """Total de transações nesta categoria"""
+  transactionCount: Int!
   updatedAt: String!
   userId: String!
 }
