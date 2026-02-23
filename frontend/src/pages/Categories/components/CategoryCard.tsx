@@ -9,10 +9,11 @@ import { cn } from "@/lib/utils"
 
 export interface CategoryCardProps {
   category: CategoryGql
+  onDeleteClick?: (category: CategoryGql) => void
   className?: string
 }
 
-export function CategoryCard({ category, className }: CategoryCardProps) {
+export function CategoryCard({ category, onDeleteClick, className }: CategoryCardProps) {
   const openForEdit = useCategoryDialogStore((s) => s.openForEdit)
   const variant = getBadgeVariantFromColor(category.color)
   const IconComponent =
@@ -25,7 +26,7 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
   }
 
   const handleDelete = () => {
-    // TODO: excluir categoria
+    onDeleteClick?.(category)
   }
 
   return (

@@ -1,19 +1,33 @@
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useMutation } from "@apollo/client/react"
+import { toast } from "sonner"
 import { Page } from "@/components/Page"
 import { PageTitle } from "@/components/PageTitle"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { ConfirmDialog } from "@/components/ConfirmDialog"
 import { CategoryInfoCard } from "./components/CategoryInfoCard"
 import { CategoryCard } from "./components/CategoryCard"
 import { useCategoriesStore } from "@/stores/categories"
 import { useCategoryDialogStore } from "@/stores/categoryDialog"
 import { getCategoryStats } from "@/helpers/categoryStats"
 import { CATEGORY_ICON_COMPONENTS, type CategoryIconId } from "@/helpers/categoryIcons"
+import {
+  DELETE_CATEGORY,
+  DELETE_CATEGORY_OPTIONS,
+} from "@/lib/graphql/mutations/DeleteCategory"
+import type { CategoryGql } from "@/lib/graphql/queries/ListMyCategories"
+import { getGraphQLMessage } from "@/lib/utils"
 import { ArrowUpDown, Plus, Tag } from "lucide-react"
 
 export function Categories() {
   const { categories, fetchCategories } = useCategoriesStore()
   const openForCreate = useCategoryDialogStore((s) => s.openForCreate)
+  const [categoryToDelete, setCategoryToDelete] = useState<CategoryGql | null>(null)
+  const [deleteCategory, { loading: deleting }] = useMutation(
+    DELETE_CATEGORY,
+    DELETE_CATEGORY_OPTIONS
+  )
 
   useEffect(() => {
     fetchCategories() 
@@ -28,6 +42,18 @@ export function Categories() {
     mostUsedCategory && mostUsedCategory.icon in CATEGORY_ICON_COMPONENTS
       ? CATEGORY_ICON_COMPONENTS[mostUsedCategory.icon as CategoryIconId]
       : null
+
+  const handleConfirmDelete = async () => {
+    if (!categoryToDelete) return
+    try {
+      await deleteCategory({ variables: { id: categoryToDelete.id } })
+      await fetchCategories()
+      toast.success("Categoria excluída.")
+    } catch (err) {
+      toast.error(getGraphQLMessage(err))
+      throw err
+    }
+  }
 
   return (
     <Page>
@@ -74,11 +100,25 @@ export function Categories() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {categories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
+              <CategoryCard
+                key={category.id}
+                category={category}
+                onDeleteClick={setCategoryToDelete}
+              />
             ))}
           </div>
         )}
       </div>
+      <ConfirmDialog
+        open={categoryToDelete !== null}
+        onOpenChange={(open) => !open && setCategoryToDelete(null)}
+        title="Excluir categoria"
+        description="Ao excluir esta categoria, todas as transações vinculadas a ela também serão excluídas. Esta ação não pode ser desfeita. Deseja realmente excluir?"
+        confirmLabel="Excluir"
+        variant="destructive"
+        loading={deleting}
+        onConfirm={handleConfirmDelete}
+      />
     </Page>
   )
 }
