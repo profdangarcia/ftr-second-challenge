@@ -3,6 +3,7 @@ import { Badge, getBadgeVariantFromColor } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { CATEGORY_ICON_COMPONENTS, type CategoryIconId } from "@/helpers/categoryIcons"
 import type { CategoryGql } from "@/lib/graphql/queries/ListMyCategories"
+import { useCategoryDialogStore } from "@/stores/categoryDialog"
 import { Pencil, ReceiptText, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -12,6 +13,7 @@ export interface CategoryCardProps {
 }
 
 export function CategoryCard({ category, className }: CategoryCardProps) {
+  const openForEdit = useCategoryDialogStore((s) => s.openForEdit)
   const variant = getBadgeVariantFromColor(category.color)
   const IconComponent =
     category.icon in CATEGORY_ICON_COMPONENTS
@@ -19,7 +21,7 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
       : ReceiptText
 
   const handleEdit = () => {
-    // TODO: abrir edição
+    openForEdit(category)
   }
 
   const handleDelete = () => {

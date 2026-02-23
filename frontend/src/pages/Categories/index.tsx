@@ -6,12 +6,14 @@ import { Card } from "@/components/ui/card"
 import { CategoryInfoCard } from "./components/CategoryInfoCard"
 import { CategoryCard } from "./components/CategoryCard"
 import { useCategoriesStore } from "@/stores/categories"
+import { useCategoryDialogStore } from "@/stores/categoryDialog"
 import { getCategoryStats } from "@/helpers/categoryStats"
 import { CATEGORY_ICON_COMPONENTS, type CategoryIconId } from "@/helpers/categoryIcons"
 import { ArrowUpDown, Plus, Tag } from "lucide-react"
 
 export function Categories() {
   const { categories, fetchCategories } = useCategoriesStore()
+  const openForCreate = useCategoryDialogStore((s) => s.openForCreate)
 
   useEffect(() => {
     fetchCategories() 
@@ -35,7 +37,7 @@ export function Categories() {
             title="Categorias"
             description="Organize suas transações por categorias"
           />
-          <Button size="sm" onClick={() => {}}>
+          <Button size="sm" onClick={openForCreate}>
             <Plus className="size-4" />
             Nova categoria
           </Button>

@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/sonner"
 import { Header } from "./Header"
 import { TransactionDialog } from "./TransactionDialog"
+import { CategoryDialog } from "./CategoryDialog"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -12,6 +13,7 @@ export function Layout({ children }: LayoutProps) {
       <Header />
       <main className="mx-auto px-6 pt-12 pb-6 max-w-7xl">{children}</main>
       <TransactionDialog />
+      <CategoryDialog />
       <Toaster />
     </div>
   )
