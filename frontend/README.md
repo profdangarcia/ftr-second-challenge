@@ -1,35 +1,35 @@
 # Financy – Frontend
 
-Interface web do Financy (React + TypeScript + Vite + Apollo Client + Tailwind).
+Web interface for Financy (React + TypeScript + Vite + Apollo Client + Tailwind).
 
-## Como executar
+## How to run
 
-### 1. Instalar dependências
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configurar ambiente
+### 2. Configure environment
 
-Copie o arquivo de exemplo e ajuste se precisar:
+Copy the example file and adjust if needed:
 
 ```bash
 cp .env.example .env
 ```
 
-Variável usada: `VITE_GRAPHQL_URI` (padrão: `http://localhost:4000/graphql`). O backend deve estar rodando nesse endpoint.
+Variable used: `VITE_GRAPHQL_URI` (default: `http://localhost:4000/graphql`). The backend must be running at that endpoint.
 
-### 3. Subir o servidor de desenvolvimento
+### 3. Start the dev server
 
 ```bash
 npm run dev
 ```
 
-A aplicação sobe em **http://localhost:5173** (ou na porta exibida no terminal).
+The app runs at **http://localhost:5173** (or the port shown in the terminal).
 
-### Outros comandos
+### Other commands
 
-- `npm run build` – build de produção
-- `npm run preview` – preview do build
+- `npm run build` – production build
+- `npm run preview` – preview the build
 - `npm run lint` – ESLint
