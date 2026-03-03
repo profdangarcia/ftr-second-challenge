@@ -30,7 +30,7 @@ export function Login() {
     try {
       const ok = await login({ email, password })
       if (ok) {
-        toast.success("Login realizado com sucesso!")
+        toast.success("Successfully signed in!")
       }
     } catch (error) {
       toast.error(getGraphQLMessage(error))
@@ -49,10 +49,10 @@ export function Login() {
       <Card className="w-full max-w-md rounded-xl shadow-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-xl font-bold text-gray-800">
-            Fazer login
+            Sign in
           </CardTitle>
           <CardDescription className="text-gray-500 text-md">
-            Entre na sua conta para continuar
+            Access your account to continue
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -62,7 +62,7 @@ export function Login() {
               icon={<Mail className="size-4" />}
               id="email"
               type="email"
-              placeholder="mail@exemplo.com"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -85,7 +85,7 @@ export function Login() {
                 size="icon"
                 className="absolute right-1 top-[3.375rem] h-8 w-8 -translate-y-1/2 border-0 bg-transparent shadow-none text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
                   <EyeOff className="size-4" />
@@ -102,14 +102,14 @@ export function Login() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="h-4 w-4 rounded border-gray-200 text-primary focus:ring-primary"
                 />
-                Lembrar-me
+                Remember me
               </label>
               <Button variant="link">
-                Recuperar senha
+                Forgot password
               </Button>
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              Entrar
+              Sign in
             </Button>
           </form>
           <div className="relative flex items-center justify-center py-2">
@@ -117,16 +117,16 @@ export function Login() {
               <span className="w-full border-t border-gray-200" />
             </div>
             <span className="relative bg-card px-2 text-xs text-gray-500">
-              ou
+              or
             </span>
           </div>
           <p className="text-center text-sm text-gray-600">
-            Ainda não tem uma conta?
+            Don&apos;t have an account yet?
           </p>
           <Button variant="outline" className="w-full" asChild>
             <Link to="/signup" className="inline-flex items-center gap-2">
               <UserPlus className="size-4" />
-              Criar conta
+              Create account
             </Link>
           </Button>
         </CardContent>

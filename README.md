@@ -1,6 +1,6 @@
 # Financy
 
-Aplicação de controle financeiro pessoal: transações (receitas/despesas), categorias e dashboard com resumo do período.
+Personal finance app: transactions (income/expenses), categories, and a period summary dashboard.
 
 ## Stack
 
@@ -9,15 +9,15 @@ Aplicação de controle financeiro pessoal: transações (receitas/despesas), ca
 
 ## Node
 
-Use a versão definida no [.nvmrc](.nvmrc). Com nvm:
+Use the version specified in [.nvmrc](.nvmrc). With nvm:
 
 ```bash
 nvm use
 ```
 
-## Projetos
+## Projects
 
-- **[backend/](backend/)** – API GraphQL (consultas, mutations de auth, transações e categorias)
-- **[frontend/](frontend/)** – Interface web (login, dashboard, transações, categorias)
+- **[backend/](backend/)** – GraphQL API (queries, auth and transaction/category mutations)
+- **[frontend/](frontend/)** – Web app (login, dashboard, transactions, categories)
 
-Consulte o README de cada pasta para como rodar e configurar.
+See each folder's README for how to run and configure.

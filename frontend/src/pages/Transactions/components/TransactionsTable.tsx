@@ -40,7 +40,7 @@ export function TransactionsTable({
                 colSpan={6}
                 className="py-12 text-center text-sm text-gray-500"
               >
-                Nenhuma transação encontrada.
+                No transactions found.
               </TableCell>
             </TableRow>
           ) : (

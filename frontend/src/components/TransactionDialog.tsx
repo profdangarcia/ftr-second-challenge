@@ -89,20 +89,20 @@ export function TransactionDialog() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!description.trim()) {
-      toast.error("Preencha a descrição.")
+      toast.error("Please fill in the description.")
       return
     }
     if (!date) {
-      toast.error("Selecione a data.")
+      toast.error("Select a date.")
       return
     }
     const valueCents = parseValueToCents()
     if (valueCents === null || valueCents === 0) {
-      toast.error("Informe um valor maior que zero.")
+      toast.error("Enter an amount greater than zero.")
       return
     }
     if (!categoryId) {
-      toast.error("Selecione a categoria.")
+      toast.error("Select a category.")
       return
     }
 
@@ -118,7 +118,7 @@ export function TransactionDialog() {
           value: valueCents,
         }
         await createTransaction({ variables: { data: input } })
-        toast.success("Transação criada.")
+        toast.success("Transaction created.")
       } else if (transaction) {
         const input: UpdateTransactionInput = {
           categoryId,
@@ -128,7 +128,7 @@ export function TransactionDialog() {
           value: valueCents,
         }
         await updateTransaction({ variables: { id: transaction.id, data: input } })
-        toast.success("Transação atualizada.")
+        toast.success("Transaction updated.")
       }
       close()
     } catch (err) {
@@ -142,9 +142,9 @@ export function TransactionDialog() {
         <DialogCloseButton />
         <DialogHeader className="pr-8">
           <DialogTitle>
-            {mode === "edit" ? "Editar transação" : "Nova transação"}
+            {mode === "edit" ? "Edit transaction" : "New transaction"}
           </DialogTitle>
-          <DialogDescription>Registre sua despesa ou receita</DialogDescription>
+          <DialogDescription>Record your expense or income</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -162,7 +162,7 @@ export function TransactionDialog() {
               <CircleArrowDownIcon
                 className={cn("size-5 shrink-0", type === "EXPENSE" ? "text-red-base" : "text-gray-400")}
               />
-              Despesa
+              Expense
             </button>
             <button
               type="button"
@@ -177,13 +177,13 @@ export function TransactionDialog() {
               <CircleArrowUpIcon
                 className={cn("size-5 shrink-0", type === "INCOME" ? "text-green-base" : "text-gray-400")}
               />
-              Receita
+              Income
             </button>
           </div>
 
           <Input
-            label="Descrição"
-            placeholder="Ex. Almoço no restaurante"
+            label="Description"
+            placeholder="E.g. Lunch at the restaurant"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -191,7 +191,7 @@ export function TransactionDialog() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="mb-2 block text-sm font-medium leading-none text-gray-700">
-                Data
+                Date
               </label>
               <input
                 type="date"
@@ -202,14 +202,14 @@ export function TransactionDialog() {
             </div>
             <div className="space-y-2">
               <label className="mb-2 block text-sm font-medium leading-none text-gray-700">
-                Valor
+                Amount
               </label>
               <div className="flex h-12 items-center rounded-md border border-gray-300 bg-white px-3">
                 <span className="text-base text-gray-500">R$</span>
                 <input
                   type="text"
                   inputMode="decimal"
-                  placeholder="0,00"
+                  placeholder="0.00"
                   value={valueReais}
                   onChange={(e) => {
                     const v = e.target.value.replace(/[^\d,]/g, "").replace(/(\d+),(\d{0,2}).*/, "$1,$2")
@@ -223,14 +223,14 @@ export function TransactionDialog() {
 
           <div className="space-y-2">
             <label className="mb-2 block text-sm font-medium leading-none text-gray-700">
-              Categoria
+              Category
             </label>
             <Select value={categoryId || "none"} onValueChange={(v) => setCategoryId(v === "none" ? "" : v)}>
               <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
+                <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="none">Selecione</SelectItem>
+                <SelectItem value="none">Select</SelectItem>
                 {categories.map((cat) => (
                   <SelectItem key={cat.id} value={cat.id}>
                     {cat.title}
@@ -241,7 +241,7 @@ export function TransactionDialog() {
           </div>
 
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Salvando..." : "Salvar"}
+            {loading ? "Saving..." : "Save"}
           </Button>
         </form>
       </DialogContent>

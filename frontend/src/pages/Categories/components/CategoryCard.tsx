@@ -43,7 +43,7 @@ export function CategoryCard({ category, onDeleteClick, className }: CategoryCar
               type="button"
               variant="outline"
               size="icon"
-              aria-label="Excluir"
+              aria-label="Delete"
               onClick={handleDelete}
             >
               <Trash2 className="text-danger" />
@@ -52,7 +52,7 @@ export function CategoryCard({ category, onDeleteClick, className }: CategoryCar
               type="button"
               variant="outline"
               size="icon"
-              aria-label="Editar"
+              aria-label="Edit"
               onClick={handleEdit}
             >
               <Pencil className="text-gray-700" />
@@ -76,7 +76,7 @@ export function CategoryCard({ category, onDeleteClick, className }: CategoryCar
             {category.title}
           </Badge>
           <span className="text-sm text-gray-500 tabular-nums">
-            {category.transactionCount} {category.transactionCount === 1 ? "item" : "itens"}
+            {category.transactionCount} {category.transactionCount === 1 ? "item" : "items"}
           </span>
         </div>
       </CardContent>

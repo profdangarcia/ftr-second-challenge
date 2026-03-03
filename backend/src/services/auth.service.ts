@@ -27,7 +27,7 @@ export async function register(data: RegisterInput): Promise<AuthOutput> {
     where: { email: data.email },
   })
   if (existing) {
-    throw new GraphQLError('E-mail já cadastrado.', {
+    throw new GraphQLError('E-mail already registered.', {
       extensions: { code: 'BAD_USER_INPUT' },
     })
   }
@@ -53,7 +53,7 @@ export async function login(data: LoginInput): Promise<AuthOutput> {
   })
   const passwordMatch = user ? await comparePassword(data.password, user.password) : false
   if (!user || !passwordMatch) {
-    throw new GraphQLError('Credenciais inválidas.', {
+    throw new GraphQLError('Invalid credentials.', {
       extensions: { code: 'UNAUTHENTICATED' },
     })
   }

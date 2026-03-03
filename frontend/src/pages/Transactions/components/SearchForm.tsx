@@ -34,9 +34,9 @@ interface SearchFormProps {
 }
 
 const TYPE_OPTIONS = [
-  { value: "", label: "Todos" },
-  { value: "EXPENSE", label: "Saídas" },
-  { value: "INCOME", label: "Entradas" },
+  { value: "", label: "All" },
+  { value: "EXPENSE", label: "Expenses" },
+  { value: "INCOME", label: "Income" },
 ] as const
 
 export function SearchForm({
@@ -61,9 +61,9 @@ export function SearchForm({
         >
         <div className="w-full">
           <Input
-            label="Buscar"
+            label="Search"
             icon={<Search className="size-4" />}
-            placeholder="Buscar por descrição"
+            placeholder="Search by description"
             value={value.search}
             onChange={(e) => update({ search: e.target.value })}
           />
@@ -71,14 +71,14 @@ export function SearchForm({
 
         <div className="w-full space-y-2">
           <label className="mb-2 block text-sm font-medium leading-none text-gray-700">
-            Tipo
+            Type
           </label>
           <Select
             value={value.type || "all"}
             onValueChange={(v) => update({ type: v === "all" ? "" : v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Todos" />
+              <SelectValue placeholder="All" />
             </SelectTrigger>
             <SelectContent>
               {TYPE_OPTIONS.map((opt) => (
@@ -92,17 +92,17 @@ export function SearchForm({
 
         <div className="w-full space-y-2">
           <label className="mb-2 block text-sm font-medium leading-none text-gray-700">
-            Categoria
+            Category
           </label>
           <Select
             value={value.categoryId || "all"}
             onValueChange={(v) => update({ categoryId: v === "all" ? "" : v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Todas" />
+              <SelectValue placeholder="All" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todas</SelectItem>
+              <SelectItem value="all">All</SelectItem>
               {categories.map((cat) => (
                 <SelectItem key={cat.id} value={cat.id}>
                   {cat.title}
@@ -114,14 +114,14 @@ export function SearchForm({
 
         <div className="w-full space-y-2">
           <label className="mb-2 block text-sm font-medium leading-none text-gray-700">
-            Período
+            Period
           </label>
           <Select
             value={value.period || currentPeriod}
             onValueChange={(v) => update({ period: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Mês / Ano" />
+              <SelectValue placeholder="Month / Year" />
             </SelectTrigger>
             <SelectContent>
               {periodOptions.map((opt) => (

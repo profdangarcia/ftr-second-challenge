@@ -1,59 +1,59 @@
 # Financy – Backend
 
-API GraphQL (Apollo Server + TypeScript + Prisma + SQLite) para o app Financy.
+GraphQL API (Apollo Server + TypeScript + Prisma + SQLite) for the Financy app.
 
-## Como executar
+## How to run
 
-### 1. Instalar dependências
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configurar ambiente
+### 2. Configure environment
 
-Copie o arquivo de exemplo e ajuste se precisar:
+Copy the example file and adjust if needed:
 
 ```bash
 cp .env.example .env
 ```
 
-Variáveis usadas: `DATABASE_URL` (ex.: `file:./dev.db` para SQLite) e `JWT_SECRET`.
+Variables used: `DATABASE_URL` (e.g. `file:./dev.db` for SQLite) and `JWT_SECRET`.
 
-### 3. Banco de dados
+### 3. Database
 
-Criar/atualizar as tabelas:
+Create or update the tables:
 
 ```bash
 npm run migrate
 ```
 
-(Opcional) Popular com usuário e dados de exemplo:
+(Optional) Seed with a sample user and data:
 
 ```bash
 npm run seed
 ```
 
-### 4. Subir o servidor
+### 4. Start the server
 
 ```bash
 npm run dev
 ```
 
-O servidor sobe na porta **4000** (ou na definida em `PORT` no `.env`).
+The server runs on port **4000** (or the value set in `PORT` in `.env`).
 
 ### 5. Apollo Server / GraphQL
 
-Abra no navegador:
+Open in your browser:
 
 **http://localhost:4000/graphql**
 
-Você verá a interface do **Apollo Sandbox**, onde dá para executar queries e mutations. Para operações que exigem login, use o header **HTTP Headers** e informe o token:
+You will see the **Apollo Sandbox** interface, where you can run queries and mutations. For operations that require login, use the **HTTP Headers** section and pass the token:
 
 ```json
 {
-  "Authorization": "Bearer SEU_TOKEN_JWT"
+  "Authorization": "Bearer YOUR_JWT_TOKEN"
 }
 ```
 
-Obtenha o token fazendo a mutation `login` (ou `register`) e use o valor retornado em `token`.
+Get the token by running the `login` (or `register`) mutation and use the value returned in `token`.

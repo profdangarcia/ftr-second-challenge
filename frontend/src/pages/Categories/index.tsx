@@ -48,7 +48,7 @@ export function Categories() {
     try {
       await deleteCategory({ variables: { id: categoryToDelete.id } })
       await fetchCategories()
-      toast.success("Categoria excluída.")
+      toast.success("Category deleted.")
     } catch (err) {
       toast.error(getGraphQLMessage(err))
       throw err
@@ -60,24 +60,24 @@ export function Categories() {
       <div className="flex flex-col gap-6">
         <div className="flex justify-between items-center">
           <PageTitle
-            title="Categorias"
-            description="Organize suas transações por categorias"
+            title="Categories"
+            description="Organize your transactions by categories"
           />
           <Button size="sm" onClick={openForCreate}>
             <Plus className="size-4" />
-            Nova categoria
+            New category
           </Button>
         </div>
         <div className="flex gap-4">
           <CategoryInfoCard
             icon={<Tag className="text-gray-700" />}
             primaryText={String(totalCategories)}
-            secondaryText="TOTAL DE CATEGORIAS"
+            secondaryText="TOTAL CATEGORIES"
           />
           <CategoryInfoCard
             icon={<ArrowUpDown className="text-purple-base" />}
             primaryText={String(totalTransactions)}
-            secondaryText="TOTAL DE TRANSAÇÕES"
+            secondaryText="TOTAL TRANSACTIONS"
           />
           <CategoryInfoCard
             icon={
@@ -90,12 +90,12 @@ export function Categories() {
               )
             }
             primaryText={mostUsedCategory?.title ?? "—"}
-            secondaryText="CATEGORIA MAIS UTILIZADA"
+            secondaryText="MOST USED CATEGORY"
           />
         </div>
         {categories.length === 0 ? (
           <Card className="rounded-xl py-12 text-center">
-            <p className="text-sm text-gray-500">Nenhuma categoria encontrada.</p>
+            <p className="text-sm text-gray-500">No categories found.</p>
           </Card>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -112,9 +112,9 @@ export function Categories() {
       <ConfirmDialog
         open={categoryToDelete !== null}
         onOpenChange={(open) => !open && setCategoryToDelete(null)}
-        title="Excluir categoria"
-        description="Ao excluir esta categoria, todas as transações vinculadas a ela também serão excluídas. Esta ação não pode ser desfeita. Deseja realmente excluir?"
-        confirmLabel="Excluir"
+        title="Delete category"
+        description="Deleting this category will also delete all transactions linked to it. This action cannot be undone. Are you sure you want to delete?"
+        confirmLabel="Delete"
         variant="destructive"
         loading={deleting}
         onConfirm={handleConfirmDelete}

@@ -31,8 +31,8 @@ export function ConfirmDialog({
   onOpenChange,
   title,
   description,
-  confirmLabel = "Confirmar",
-  cancelLabel = "Cancelar",
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
   onConfirm,
   onCancel,
   loading = false,
@@ -84,7 +84,7 @@ export function ConfirmDialog({
             )}
             size="sm"
           >
-            {loading ? "Aguarde..." : confirmLabel}
+            {loading ? "Please wait..." : confirmLabel}
           </Button>
         </DialogFooter>
       </DialogContent>

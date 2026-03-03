@@ -75,7 +75,7 @@ export function CategoryDialog() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!title.trim()) {
-      toast.error("Preencha o título.")
+      toast.error("Please fill in the title.")
       return
     }
 
@@ -88,7 +88,7 @@ export function CategoryDialog() {
           color,
         }
         await createCategory({ variables: { data: input } })
-        toast.success("Categoria criada.")
+        toast.success("Category created.")
       } else if (category) {
         const input: UpdateCategoryInput = {
           title: title.trim(),
@@ -97,7 +97,7 @@ export function CategoryDialog() {
           color,
         }
         await updateCategory({ variables: { id: category.id, data: input } })
-        toast.success("Categoria atualizada.")
+        toast.success("Category updated.")
       }
       await fetchCategories()
       close()
@@ -114,35 +114,35 @@ export function CategoryDialog() {
         <DialogCloseButton />
         <DialogHeader className="pr-8">
           <DialogTitle>
-            {mode === "edit" ? "Editar categoria" : "Nova categoria"}
+            {mode === "edit" ? "Edit category" : "New category"}
           </DialogTitle>
           <DialogDescription>
-            Organize suas transações com categorias
+            Organize your transactions with categories
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <Input
-            label="Título"
-            placeholder="Ex. Alimentação"
+            label="Title"
+            placeholder="E.g. Food"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
 
           <div className="space-y-2">
             <Input
-              label="Descrição"
+              label="Description"
               type="text"
-              placeholder="Descrição da categoria"
+              placeholder="Category description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              helper="Opcional"
+              helper="Optional"
             />
           </div>
 
           <div className="space-y-2">
             <label className="block text-sm font-medium leading-none text-gray-700">
-              Ícone
+              Icon
             </label>
             <div className="grid grid-cols-8 gap-1">
               {iconIds.map((iconId) => {
@@ -159,7 +159,7 @@ export function CategoryDialog() {
                       "h-8 w-8 shrink-0 text-gray-600",
                       selected && "border-2 border-brand-base bg-white"
                     )}
-                    aria-label={`Ícone ${iconId}`}
+                    aria-label={`Icon ${iconId}`}
                     aria-pressed={selected}
                   >
                     <IconComponent className="size-4" />
@@ -171,7 +171,7 @@ export function CategoryDialog() {
 
           <div className="space-y-2">
             <label className="block text-sm font-medium leading-none text-gray-700">
-              Cor
+              Color
             </label>
             <div className="flex gap-1.5">
               {CATEGORY_COLOR_IDS.map((colorId) => {
@@ -186,7 +186,7 @@ export function CategoryDialog() {
                       "h-8 flex-1 min-w-0 p-1 rounded-lg",
                       selected && "border-2 border-brand-base bg-white"
                     )}
-                    aria-label={`Cor ${colorId}`}
+                    aria-label={`Color ${colorId}`}
                     aria-pressed={selected}
                   >
                     <div
@@ -202,7 +202,7 @@ export function CategoryDialog() {
           </div>
 
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Salvando..." : "Salvar"}
+            {loading ? "Saving..." : "Save"}
           </Button>
         </form>
       </DialogContent>
