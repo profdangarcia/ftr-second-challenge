@@ -11,8 +11,8 @@ export function Header() {
 
   const navLinks = [
     { to: "/", label: "Dashboard" },
-    { to: "/transacoes", label: "Transações" },
-    { to: "/categorias", label: "Categorias" },
+    { to: "/transacoes", label: "Transactions" },
+    { to: "/categorias", label: "Categories" },
   ]
 
   const initials = user?.name
@@ -62,7 +62,7 @@ export function Header() {
           <Link
             to="/usuario"
             className="flex shrink-0 items-center transition-opacity hover:opacity-80"
-            aria-label="Abrir perfil do usuário"
+            aria-label="Open user profile"
           >
             <Avatar>
               <AvatarFallback className="bg-gray-300 text-gray-800 text-sm font-medium">

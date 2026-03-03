@@ -32,14 +32,14 @@ export function User() {
     e.preventDefault()
     const trimmed = name.trim()
     if (!trimmed) {
-      toast.error("Nome é obrigatório.")
+      toast.error("Name is required.")
       return
     }
     try {
       await updateProfile(trimmed)
-      toast.success("Perfil atualizado.")
+      toast.success("Profile updated.")
     } catch {
-      toast.error("Erro ao atualizar perfil.")
+      toast.error("Error updating profile.")
     }
   }
 
@@ -69,22 +69,22 @@ export function User() {
             <div className="border-t border-gray-200 pt-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <Input
-                  label="Nome completo"
+                  label="Full name"
                   icon={<UserIcon className="size-4" />}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Seu nome completo"
+                  placeholder="Your full name"
                 />
                 <Input
                   label="E-mail"
                   icon={<Mail className="size-4" />}
                   value={user.email}
                   disabled
-                  helper="O e-mail não pode ser alterado"
+                  helper="E-mail cannot be changed"
                   className="text-muted-foreground"
                 />
                 <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                  Salvar alterações
+                  Save changes
                 </Button>
                 <Button
                   type="button"
@@ -93,7 +93,7 @@ export function User() {
                   onClick={handleLogout}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sair da conta
+                  Sign out
                 </Button>
               </form>
             </div>

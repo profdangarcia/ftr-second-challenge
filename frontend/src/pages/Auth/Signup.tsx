@@ -31,7 +31,7 @@ export function Signup() {
     try {
       const ok = await signup({ name, email, password })
       if (ok) {
-        toast.success("Cadastro realizado com sucesso!")
+        toast.success("Account created successfully!")
       }
     } catch (error) {
       toast.error(getGraphQLMessage(error))
@@ -50,19 +50,19 @@ export function Signup() {
       <Card className="w-full max-w-md rounded-xl shadow-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-gray-800">
-            Criar conta
+            Create account
           </CardTitle>
           <CardDescription className="text-gray-500">
-            Comece a controlar suas finanças ainda hoje
+            Start managing your finances today
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              label="Nome completo"
+              label="Full name"
               icon={<User className="size-4" />}
               id="name"
-              placeholder="Seu nome completo"
+              placeholder="Your full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -72,21 +72,21 @@ export function Signup() {
               icon={<Mail className="size-4" />}
               id="email"
               type="email"
-              placeholder="mail@exemplo.com"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
             <div className="relative">
               <Input
-                label="Senha"
+                label="Password"
                 icon={<Lock className="size-4" />}
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Digite sua senha"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                helper="A senha deve ter no mínimo 8 caracteres"
+                helper="Password must be at least 8 characters long"
                 required
                 minLength={8}
                 className="pr-12"
@@ -97,7 +97,7 @@ export function Signup() {
                 size="icon"
                 className="absolute right-1 top-[3.375rem] h-8 w-8 -translate-y-1/2 border-0 bg-transparent shadow-none text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
                   <EyeOff className="size-4" />
@@ -107,7 +107,7 @@ export function Signup() {
               </Button>
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              Cadastrar
+              Sign up
             </Button>
           </form>
           <div className="relative flex items-center justify-center py-2">
@@ -115,16 +115,16 @@ export function Signup() {
               <span className="w-full border-t border-gray-200" />
             </div>
             <span className="relative bg-card px-2 text-xs text-gray-500">
-              ou
+              or
             </span>
           </div>
           <p className="text-center text-sm text-gray-600">
-            Já tem uma conta?
+            Already have an account?
           </p>
           <Button variant="outline" className="w-full" asChild>
             <Link to="/login" className="inline-flex items-center gap-2">
               <ArrowRight className="size-4" />
-              Fazer login
+              Sign in
             </Link>
           </Button>
         </CardContent>

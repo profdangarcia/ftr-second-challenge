@@ -75,7 +75,7 @@ export function Transactions() {
     if (!transactionToDelete) return
     try {
       await deleteTransaction({ variables: { id: transactionToDelete.id } })
-      toast.success("Transação excluída.")
+      toast.success("Transaction deleted.")
     } catch (err) {
       toast.error(getGraphQLMessage(err))
       throw err
@@ -87,12 +87,12 @@ export function Transactions() {
       <div className="flex flex-col gap-6">
         <div className="flex justify-between items-center">
           <PageTitle
-            title="Transações"
-            description="Gerencie todas as suas transações financeiras"
+            title="Transactions"
+            description="Manage all your financial transactions"
           />
           <Button size="sm" onClick={openForCreate}>
             <Plus className="size-4" />
-            Nova transação
+            New transaction
           </Button>
         </div>
         <SearchForm
@@ -110,16 +110,16 @@ export function Transactions() {
           onDeleteClick={setTransactionToDelete}
         />
       </div>
-      <ConfirmDialog
-        open={transactionToDelete !== null}
-        onOpenChange={(open) => !open && setTransactionToDelete(null)}
-        title="Excluir transação"
-        description="Esta ação não pode ser desfeita. Deseja realmente excluir esta transação?"
-        confirmLabel="Excluir"
-        variant="destructive"
-        loading={deleting}
-        onConfirm={handleConfirmDelete}
-      />
+        <ConfirmDialog
+          open={transactionToDelete !== null}
+          onOpenChange={(open) => !open && setTransactionToDelete(null)}
+          title="Delete transaction"
+          description="This action cannot be undone. Are you sure you want to delete this transaction?"
+          confirmLabel="Delete"
+          variant="destructive"
+          loading={deleting}
+          onConfirm={handleConfirmDelete}
+        />
     </Page>
   )
 }

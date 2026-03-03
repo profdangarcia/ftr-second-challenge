@@ -13,10 +13,10 @@ export enum CategoryColorEnum {
 
 registerEnumType(CategoryColorEnum, {
   name: 'CategoryColor',
-  description: 'Cor da categoria (paleta)',
+  description: 'Category color (palette)',
 })
 
-/** Ícones disponíveis para categorias (mesmas chaves do categoryIcons no frontend, em UPPERCASE). */
+/** Available icons for categories (same keys as categoryIcons on the frontend, in UPPERCASE). */
 export enum CategoryIconEnum {
   BRIEFCASE = 'BRIEFCASE',
   CAR = 'CAR',
@@ -38,7 +38,7 @@ export enum CategoryIconEnum {
 
 registerEnumType(CategoryIconEnum, {
   name: 'CategoryIcon',
-  description: 'Ícone da categoria (paleta do frontend)',
+  description: 'Category icon (frontend palette)',
 })
 
 @ObjectType()
@@ -67,6 +67,6 @@ export class CategoryModel {
   @Field(() => String)
   updatedAt: string
 
-  @Field(() => Int, { description: 'Total de transações nesta categoria' })
+  @Field(() => Int, { description: 'Total transactions in this category' })
   transactionCount: number
 }

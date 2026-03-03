@@ -21,7 +21,7 @@ export function TransactionsTablePaginator({
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 bg-gray-50/50 px-4 py-3">
       <p className="text-sm text-gray-600">
-        {start} a {end} | {total} resultado{total !== 1 ? "s" : ""}
+        {start} to {end} | {total} result{total !== 1 ? "s" : ""}
       </p>
       <div className="flex items-center gap-1">
         <Button
@@ -30,7 +30,7 @@ export function TransactionsTablePaginator({
           size="icon"
           disabled={page <= 1}
           onClick={() => onPageChange(page - 1)}
-          aria-label="Página anterior"
+          aria-label="Previous page"
         >
           <ChevronLeft className="size-4" />
         </Button>
@@ -52,7 +52,7 @@ export function TransactionsTablePaginator({
           size="icon"
           disabled={page >= totalPages}
           onClick={() => onPageChange(page + 1)}
-          aria-label="Próxima página"
+          aria-label="Next page"
         >
           <ChevronRight className="size-4" />
         </Button>

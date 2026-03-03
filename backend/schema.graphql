@@ -9,7 +9,7 @@ type AuthOutput {
   user: UserModel!
 }
 
-"""Cor da categoria (paleta)"""
+"""Category color (palette)"""
 enum CategoryColor {
   BLUE
   GREEN
@@ -20,7 +20,7 @@ enum CategoryColor {
   YELLOW
 }
 
-"""Ícone da categoria (paleta do frontend)"""
+"""Category icon (frontend palette)"""
 enum CategoryIcon {
   BOOK_OPEN
   BRIEFCASE
@@ -48,7 +48,7 @@ type CategoryModel {
   id: ID!
   title: String!
 
-  """Total de transações nesta categoria"""
+  """Total transactions in this category"""
   transactionCount: Int!
   updatedAt: String!
   userId: String!

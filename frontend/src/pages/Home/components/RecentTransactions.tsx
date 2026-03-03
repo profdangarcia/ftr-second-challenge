@@ -40,18 +40,18 @@ export function RecentTransactions({
     <Card className={cn("rounded-xl w-full self-start", className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b border-gray-200 pb-4">
         <h2 className="text-[0.75rem] font-medium uppercase tracking-wide text-gray-500">
-          Transações recentes
+          Recent transactions
         </h2>
         <Button variant="link" className="p-0 text-brand-base" asChild size="sm">
           <Link to="/transacoes">
-            Ver todas <ChevronRight />
+            View all <ChevronRight />
           </Link>
         </Button>
       </CardHeader>
       <CardContent className="pt-2 pb-2">
         {recentTransactions.length === 0 ? (
           <p className="py-6 text-center text-sm text-gray-500">
-            Nenhuma transação recente.
+            No recent transactions.
           </p>
         ) : (
           <ul className="-mx-6">
@@ -116,7 +116,7 @@ export function RecentTransactions({
           onClick={() => useTransactionDialogStore.getState().openForCreate()}
           size="sm"
         >
-          <Plus /> Nova transação
+          <Plus /> New transaction
         </Button>
       </CardContent>
     </Card>

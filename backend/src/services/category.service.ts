@@ -52,7 +52,7 @@ export async function update(
     where: { id: categoryId, userId },
   })
   if (!existing) {
-    throw new GraphQLError('Categoria não encontrada.', {
+    throw new GraphQLError('Category not found.', {
       extensions: { code: 'NOT_FOUND' },
     })
   }
@@ -73,7 +73,7 @@ export async function remove(categoryId: string, userId: string): Promise<boolea
     where: { id: categoryId, userId },
   })
   if (!existing) {
-    throw new GraphQLError('Categoria não encontrada.', {
+    throw new GraphQLError('Category not found.', {
       extensions: { code: 'NOT_FOUND' },
     })
   }

@@ -69,7 +69,7 @@ export function TransactionTableRow({ transaction: tx, category, onDeleteClick }
           ) : (
             <CircleArrowDownIcon className="size-4 shrink-0" />
           )}
-          {isIncome ? "Entrada" : "Saída"}
+          {isIncome ? "Income" : "Expense"}
         </span>
       </TableCell>
       <TableCell className="px-4 py-3 text-sm font-semibold text-gray-800">
@@ -81,7 +81,7 @@ export function TransactionTableRow({ transaction: tx, category, onDeleteClick }
             type="button"
             variant="outline"
             size="icon"
-            aria-label="Excluir"
+            aria-label="Delete"
             onClick={() => onDeleteClick(tx)}
           >
             <Trash2 className="text-danger" />
@@ -90,7 +90,7 @@ export function TransactionTableRow({ transaction: tx, category, onDeleteClick }
             type="button"
             variant="outline"
             size="icon"
-            aria-label="Editar"
+            aria-label="Edit"
             onClick={() => openForEdit(tx)}
           >
             <Pencil className="text-gray-700" />

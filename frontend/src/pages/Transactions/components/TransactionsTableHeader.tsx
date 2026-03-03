@@ -12,12 +12,12 @@ export function TransactionsTableHeader() {
   return (
     <TableHeader>
       <TableRow className="border-gray-200 hover:bg-transparent">
-        <TableHead className={HEADER_CELL_CLASS}>Descrição</TableHead>
-        <TableHead className={HEADER_CELL_CLASS}>Data</TableHead>
-        <TableHead className={HEADER_CELL_CLASS}>Categoria</TableHead>
-        <TableHead className={HEADER_CELL_CLASS}>Tipo</TableHead>
-        <TableHead className={HEADER_CELL_CLASS}>Valor</TableHead>
-        <TableHead className={cn(HEADER_CELL_CLASS, "w-[120px]")}>Ações</TableHead>
+        <TableHead className={HEADER_CELL_CLASS}>Description</TableHead>
+        <TableHead className={HEADER_CELL_CLASS}>Date</TableHead>
+        <TableHead className={HEADER_CELL_CLASS}>Category</TableHead>
+        <TableHead className={HEADER_CELL_CLASS}>Type</TableHead>
+        <TableHead className={HEADER_CELL_CLASS}>Amount</TableHead>
+        <TableHead className={cn(HEADER_CELL_CLASS, "w-[120px]")}>Actions</TableHead>
       </TableRow>
     </TableHeader>
   )

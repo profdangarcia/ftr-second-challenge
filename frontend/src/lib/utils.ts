@@ -35,22 +35,22 @@ export function formatRelativeDate(date: Date | string): string {
   const diffInDays = Math.floor(diffInHours / 24)
 
   if (diffInSeconds < 60) {
-    return "Agora"
+    return "Just now"
   }
 
   if (diffInMinutes < 60) {
-    return `Há ${diffInMinutes} ${diffInMinutes === 1 ? "minuto" : "minutos"}`
+    return `${diffInMinutes} ${diffInMinutes === 1 ? "minute" : "minutes"} ago`
   }
 
   if (diffInHours < 24) {
-    return `Há ${diffInHours} ${diffInHours === 1 ? "hora" : "horas"}`
+    return `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"} ago`
   }
 
   if (diffInDays === 1) {
-    return "Ontem"
+    return "Yesterday"
   }
 
-  return `Há ${diffInDays} ${diffInDays === 1 ? "dia" : "dias"}`
+  return `${diffInDays} ${diffInDays === 1 ? "day" : "days"} ago`
 }
 
 /** Extrai a primeira mensagem de erro de uma resposta GraphQL/Apollo. */
@@ -62,5 +62,5 @@ export function getGraphQLMessage(error: unknown): string {
   if (obj?.message && typeof obj.message === "string") {
     return obj.message
   }
-  return "Erro ao conectar. Tente novamente."
+  return "Connection error. Please try again."
 }

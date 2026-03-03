@@ -41,13 +41,13 @@ export async function create(data: CreateTransactionInput, userId: string): Prom
     where: { id: data.categoryId, userId },
   })
   if (!category) {
-    throw new GraphQLError('Categoria não encontrada ou não pertence ao usuário.', {
+    throw new GraphQLError('Category not found or does not belong to the user.', {
       extensions: { code: 'BAD_USER_INPUT' },
     })
   }
   const date = new Date(data.date)
   if (Number.isNaN(date.getTime())) {
-    throw new GraphQLError('Data inválida.', {
+    throw new GraphQLError('Invalid date.', {
       extensions: { code: 'BAD_USER_INPUT' },
     })
   }
@@ -74,7 +74,7 @@ export async function update(
     where: { id: transactionId, userId },
   })
   if (!existing) {
-    throw new GraphQLError('Transação não encontrada.', {
+    throw new GraphQLError('Transaction not found.', {
       extensions: { code: 'NOT_FOUND' },
     })
   }
@@ -83,7 +83,7 @@ export async function update(
       where: { id: data.categoryId, userId },
     })
     if (!category) {
-      throw new GraphQLError('Categoria não encontrada ou não pertence ao usuário.', {
+      throw new GraphQLError('Category not found or does not belong to the user.', {
         extensions: { code: 'BAD_USER_INPUT' },
       })
     }
@@ -95,7 +95,7 @@ export async function update(
   if (data.date !== undefined) {
     const date = new Date(data.date)
     if (Number.isNaN(date.getTime())) {
-      throw new GraphQLError('Data inválida.', { extensions: { code: 'BAD_USER_INPUT' } })
+      throw new GraphQLError('Invalid date.', { extensions: { code: 'BAD_USER_INPUT' } })
     }
     updateData.date = date
   }
@@ -112,7 +112,7 @@ export async function remove(transactionId: string, userId: string): Promise<boo
     where: { id: transactionId, userId },
   })
   if (!existing) {
-    throw new GraphQLError('Transação não encontrada.', {
+    throw new GraphQLError('Transaction not found.', {
       extensions: { code: 'NOT_FOUND' },
     })
   }

@@ -31,19 +31,19 @@ export function Home() {
             value={error ? undefined : totalBalanceReais}
             loading={loading}
             icon={<WalletIcon className="text-purple-base" />}
-            text="Saldo Total"
+            text="Total balance"
           />
           <SummaryCard
             value={error ? undefined : monthlyIncomeReais}
             loading={loading}
             icon={<CircleArrowUpIcon className="text-brand-base" />}
-            text="Receitas do Mês"
+            text="Income this month"
           />
           <SummaryCard
             value={error ? undefined : monthlyExpensesReais}
             loading={loading}
             icon={<CircleArrowDownIcon className="text-red-base" />}
-            text="Despesas do Mês"
+            text="Expenses this month"
           />
         </div>
         <div className="flex w-full gap-6">
