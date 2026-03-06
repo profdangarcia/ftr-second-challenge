@@ -23,7 +23,7 @@ export interface StartServerOptions {
 }
 
 export async function startServer(options: StartServerOptions = {}): Promise<Server> {
-  const port = options.port ?? Number(process.env.PORT) ?? 4000
+  const port = options.port ?? (process.env.PORT ? Number(process.env.PORT) : 4000)
   const corsOrigin = options.corsOrigin ?? process.env.CORS_ORIGIN ?? '*'
   const emitSchemaFile = options.emitSchemaFile !== undefined ? options.emitSchemaFile : './schema.graphql'
 
@@ -68,7 +68,8 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
   })
 }
 
-const isMain = process.argv[1]?.endsWith('index.js') ?? false
+const entry = process.argv[1] ?? ''
+const isMain = entry.endsWith('index.js') || entry.endsWith('index.ts')
 if (isMain) {
   startServer()
 }
