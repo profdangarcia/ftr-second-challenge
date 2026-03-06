@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, dialog } from "electron";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn, type ChildProcess } from "node:child_process";
@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const FRONTEND_DEV_URL = "http://localhost:5173";
 const BACKEND_PORT = "4000";
+const BACKEND_KILL_DELAY_MS = 500;
 
 let backendProcess: ChildProcess | null = null;
 
@@ -58,10 +59,20 @@ function startBackend(): Promise<void> {
 }
 
 function killBackend(): void {
-  if (backendProcess && !backendProcess.killed) {
-    backendProcess.kill();
+  if (!backendProcess || backendProcess.killed) {
     backendProcess = null;
+    return;
   }
+  try {
+    if (process.platform !== "win32") {
+      backendProcess.kill("SIGKILL");
+    } else {
+      backendProcess.kill();
+    }
+  } catch {
+    backendProcess.kill();
+  }
+  backendProcess = null;
 }
 
 function createWindow(): void {
@@ -85,9 +96,33 @@ function createWindow(): void {
 
 app.whenReady().then(async () => {
   if (app.isPackaged) {
-    await runMigrations();
-    await startBackend();
+    try {
+      await runMigrations();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("[Financy] Migrations failed:", msg);
+      await dialog.showMessageBox({
+        type: "warning",
+        title: "Financy",
+        message: "Falha ao rodar migrações do banco.",
+        detail: msg,
+      });
+    }
+
+    try {
+      await startBackend();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("[Financy] Backend failed to start:", msg);
+      await dialog.showMessageBox({
+        type: "warning",
+        title: "Financy",
+        message: "O backend não iniciou. A aplicação pode não funcionar.",
+        detail: `Possível causa: porta ${BACKEND_PORT} em uso (feche outras instâncias do app).\n\n${msg}`,
+      });
+    }
   }
+
   createWindow();
 });
 
@@ -96,6 +131,10 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
-app.on("before-quit", () => {
+app.on("before-quit", (event) => {
   killBackend();
+  event.preventDefault();
+  setTimeout(() => {
+    app.exit(0);
+  }, BACKEND_KILL_DELAY_MS);
 });
