@@ -18,7 +18,7 @@ function runMigrations(): Promise<void> {
   const prismaCli = path.join(backendPath, "node_modules", "prisma", "build", "index.js");
 
   return new Promise((resolve, reject) => {
-    const proc = spawn(process.execPath, [prismaCli, "migrate", "deploy"], {
+    const proc = spawn("node", [prismaCli, "migrate", "deploy"], {
       cwd: backendPath,
       env: { ...process.env, DATABASE_URL: databaseUrl },
       stdio: "pipe",
@@ -35,7 +35,7 @@ function startBackend(): Promise<void> {
   const databaseUrl = `file:${databasePath}`;
 
   return new Promise((resolve, reject) => {
-    backendProcess = spawn(process.execPath, [entryPath], {
+    backendProcess = spawn("node", [entryPath], {
       cwd: backendPath,
       env: {
         ...process.env,
