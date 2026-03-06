@@ -19,6 +19,6 @@ Personal finance app: transactions (income/expenses), categories, and a period s
 
 - **[backend/](backend/)** – GraphQL API (queries, auth and transaction/category mutations)
 - **[frontend/](frontend/)** – Web app (login, dashboard, transactions, categories)
-- **[desktop/](desktop/)** – App Electron que roda o frontend em uma janela desktop (backend e frontend em terminais separados)
+- **[desktop/](desktop/)** – App Electron que roda o frontend em uma janela desktop (backend e frontend em terminais separados). Inclui scripts para gerar instaladores (Linux, Windows, macOS); ver README do desktop.
 
 See each folder's README for how to run and configure.

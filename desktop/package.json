@@ -7,15 +7,51 @@
   "scripts": {
     "dev": "tsc && electron .",
     "build": "tsc",
-    "start": "electron ."
+    "start": "electron .",
+    "build:icon": "node scripts/build-icon.js",
+    "build:ui": "(cd ../frontend && VITE_GRAPHQL_URI=http://localhost:4000/graphql npm run build) && node scripts/copy-ui.js",
+    "build:backend": "node scripts/prepare-backend.js",
+    "dist": "npm run build:icon && npm run build:ui && npm run build:backend && npm run build && electron-builder",
+    "pack": "npm run build:icon && npm run build:ui && npm run build:backend && npm run build && electron-builder --dir"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^33.2.0"
-  },
+  "homepage": "https://github.com/profdangarcia/ftr-second-challenge#readme",
+  "author": "Daniel Garcia <daniel.of@gmail.com>",
   "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "sharp": "^0.33.5",
     "typescript": "^5.9.2"
+  },
+  "build": {
+    "appId": "com.financy.desktop",
+    "productName": "Financy",
+    "artifactName": "Financy-${version}-${os}-${arch}.${ext}",
+    "icon": "resources/icon",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "frontend-dist/**"
+    ],
+    "extraResources": [
+      {
+        "from": "backend-packaged",
+        "to": "backend"
+      }
+    ],
+    "linux": {
+      "target": ["deb", "AppImage"],
+      "maintainer": "Daniel Garcia <daniel.of@gmail.com>"
+    },
+    "win": {
+      "target": ["nsis"]
+    },
+    "mac": {
+      "target": ["dmg"],
+      "category": "public.app-category.finance"
+    }
   }
 }

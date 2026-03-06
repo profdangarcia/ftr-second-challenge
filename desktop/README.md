@@ -41,25 +41,43 @@ App Electron que abre o frontend do Financy em uma janela desktop. O backend e o
 | `npm run dev`   | Compila o processo main e inicia o Electron (carrega o frontend em dev). |
 | `npm run build` | Compila o TypeScript do processo main para `dist/`. |
 | `npm run start` | Inicia o Electron (use após `npm run build`; em dev prefira `npm run dev`). |
+| `npm run build:icon` | Gera ícone PNG a partir do logo do frontend para o instalador. |
+| `npm run build:ui` | Gera o build do frontend e copia para `frontend-dist/` (uso no empacotamento). |
+| `npm run build:backend` | Prepara o backend compilado em `backend-packaged/` (uso no empacotamento). |
+| `npm run dist` | Gera instaladores (deb, AppImage, nsis, dmg) em `release/`. |
+| `npm run pack` | Gera o app empacotado sem instalador (pasta em `release/`) para testes. |
 
-## Build do frontend (opcional)
+## Empacotamento
 
-Para testar o app com o build estático do frontend em vez do servidor Vite:
+É possível gerar versões instaláveis do app (Linux, Windows, macOS) a partir da pasta `desktop/`.
 
-1. Build do frontend com a URI do GraphQL:
-   ```bash
-   cd frontend && VITE_GRAPHQL_URI=http://localhost:4000/graphql npm run build
-   ```
-2. Subir o backend (terminal 1) e rodar o desktop com `NODE_ENV=production`:
-   ```bash
-   cd desktop && NODE_ENV=production npm run start
-   ```
-   A janela passará a carregar os arquivos de `frontend/dist` em vez de http://localhost:5173.
+**Pré-requisitos:** Node.js, builds do frontend e do backend funcionando (o script `dist` roda os builds necessários).
+
+**Comando para gerar instaladores:**
+
+```bash
+cd desktop && npm run dist
+```
+
+Os instaladores são gerados em **`desktop/release/`**:
+
+- **Linux:** `.deb` e `AppImage`
+- **Windows:** instalador NSIS (`.exe`)
+- **macOS:** `.dmg`
+
+Para testar o app empacotado sem instalar (pasta descompactada):
+
+```bash
+cd desktop && npm run pack
+```
+
+O executável estará em `release/linux-unpacked/`, `release/win-unpacked/` ou `release/mac/` conforme o sistema.
 
 ## Estrutura
 
-- `src/main.ts` – processo principal do Electron (janela e carregamento da UI).
-- `src/env.ts` – paths do backend e do frontend e flag de ambiente.
+- `src/main.ts` – processo principal do Electron (janela, spawn do backend quando empacotado).
+- `src/env.ts` – paths do backend e do frontend (dev vs empacotado).
 - `dist/` – saída do `tsc` (gerada por `npm run build`).
-
-Empacotamento/instalador não estão previstos nesta etapa.
+- `scripts/copy-ui.js` – copia o build do frontend para `frontend-dist/`.
+- `scripts/prepare-backend.js` – monta o backend para `backend-packaged/`.
+- `scripts/build-icon.js` – gera `resources/icon.png` a partir do logo do frontend.
