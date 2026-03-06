@@ -75,12 +75,12 @@ function createWindow(): void {
 
   if (isDev) {
     win.loadURL(FRONTEND_DEV_URL);
-    win.webContents.openDevTools();
   } else {
     const { frontendDistPath } = getPaths(__dirname);
     const indexHtml = path.join(frontendDistPath, "index.html");
     win.loadFile(indexHtml);
   }
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
