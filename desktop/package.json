@@ -1,0 +1,21 @@
+{
+  "name": "financy-desktop",
+  "version": "1.0.0",
+  "description": "App Electron que executa o frontend e o backend do Financy",
+  "main": "dist/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc && electron .",
+    "build": "tsc",
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^33.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

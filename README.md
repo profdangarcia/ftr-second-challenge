@@ -19,5 +19,6 @@ nvm use
 
 - **[backend/](backend/)** – GraphQL API (queries, auth and transaction/category mutations)
 - **[frontend/](frontend/)** – Web app (login, dashboard, transactions, categories)
+- **[desktop/](desktop/)** – App Electron que roda o frontend em uma janela desktop (backend e frontend em terminais separados)
 
 See each folder's README for how to run and configure.
