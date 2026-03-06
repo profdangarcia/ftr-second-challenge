@@ -6,6 +6,10 @@ App Electron que abre o frontend do Financy em uma janela desktop. O backend e o
 
 - Node.js (versão do [.nvmrc](../.nvmrc) na raiz do repositório: `nvm use`)
 - Backend e frontend do projeto (pastas `backend/` e `frontend/` na raiz)
+- **Linux / WSL2** – Dependências de sistema para o Electron (GTK, etc.):
+  ```bash
+  sudo apt update && sudo apt install -y libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 libxtst6
+  ```
 
 ## Desenvolvimento
 
