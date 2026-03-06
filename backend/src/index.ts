@@ -1,5 +1,6 @@
 import 'reflect-metadata'
 import express from 'express'
+import type { Server } from 'node:http'
 import cors from 'cors'
 import { ApolloServer } from '@apollo/server'
 import { buildSchema } from 'type-graphql'
@@ -14,12 +15,27 @@ import { buildContext } from './graphql/context'
 const PORT = process.env.PORT ?? 4000
 const CORS_ORIGIN = process.env.CORS_ORIGIN ?? '*'
 
-async function bootstrap() {
+export interface StartServerOptions {
+  port?: number
+  databaseUrl?: string
+  corsOrigin?: string
+  emitSchemaFile?: string | false
+}
+
+export async function startServer(options: StartServerOptions = {}): Promise<Server> {
+  const port = options.port ?? Number(process.env.PORT) ?? 4000
+  const corsOrigin = options.corsOrigin ?? process.env.CORS_ORIGIN ?? '*'
+  const emitSchemaFile = options.emitSchemaFile !== undefined ? options.emitSchemaFile : './schema.graphql'
+
+  if (options.databaseUrl) {
+    process.env.DATABASE_URL = options.databaseUrl
+  }
+
   const app = express()
 
   app.use(
     cors({
-      origin: CORS_ORIGIN,
+      origin: corsOrigin,
       credentials: true,
     })
   )
@@ -27,7 +43,7 @@ async function bootstrap() {
   const schema = await buildSchema({
     resolvers: [HealthResolver, AuthResolver, CategoryResolver, TransactionResolver, DashboardResolver],
     validate: false,
-    emitSchemaFile: './schema.graphql',
+    emitSchemaFile: emitSchemaFile || undefined,
   })
 
   const server = new ApolloServer({
@@ -44,12 +60,15 @@ async function bootstrap() {
     })
   )
 
-  app.listen(
-    { port: Number(PORT) },
-    () => {
-      console.log(`Servidor iniciado na porta ${PORT}!`)
-    }
-  )
+  return new Promise<Server>((resolve) => {
+    const httpServer = app.listen(port, () => {
+      console.log(`Server started on port ${port}!`)
+      resolve(httpServer)
+    })
+  })
 }
 
-bootstrap()
+const isMain = process.argv[1]?.endsWith('index.js') ?? false
+if (isMain) {
+  startServer()
+}
