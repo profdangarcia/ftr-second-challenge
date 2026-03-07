@@ -1,9 +1,9 @@
 import { Arg, Ctx, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql'
-import { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input'
-import { GraphqlContext } from '../graphql/context'
-import { CategoryModel } from '../models/category.model'
-import { IsAuth } from '../middlewares/auth.middleware'
-import * as categoryService from '../services/category.service'
+import { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input.js'
+import { GraphqlContext } from '../graphql/context/index.js'
+import { CategoryModel } from '../models/category.model.js'
+import { IsAuth } from '../middlewares/auth.middleware.js'
+import * as categoryService from '../services/category.service.js'
 
 @Resolver()
 export class CategoryResolver {

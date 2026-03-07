@@ -1,10 +1,10 @@
 import { GraphQLError } from 'graphql'
-import { prismaClient } from '../../prisma/prisma'
-import { hashPassword, comparePassword } from '../utils/hash'
-import { signJwt } from '../utils/jwt'
-import type { RegisterInput, LoginInput, UpdateProfileInput } from '../dtos/input/auth.input'
-import type { AuthOutput } from '../dtos/output/auth.output'
-import type { UserModel } from '../models/user.model'
+import { prismaClient } from '../../prisma/prisma.js'
+import { hashPassword, comparePassword } from '../utils/hash.js'
+import { signJwt } from '../utils/jwt.js'
+import type { RegisterInput, LoginInput, UpdateProfileInput } from '../dtos/input/auth.input.js'
+import type { AuthOutput } from '../dtos/output/auth.output.js'
+import type { UserModel } from '../models/user.model.js'
 
 function toUserModel(user: {
   id: string
