@@ -20,6 +20,7 @@ export interface StartServerOptions {
   databaseUrl?: string
   corsOrigin?: string
   emitSchemaFile?: string | false
+  jwtSecret?: string
 }
 
 export async function startServer(options: StartServerOptions = {}): Promise<Server> {
@@ -29,6 +30,9 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
 
   if (options.databaseUrl) {
     process.env.DATABASE_URL = options.databaseUrl
+  }
+  if (options.jwtSecret) {
+    process.env.JWT_SECRET = options.jwtSecret
   }
 
   const app = express()

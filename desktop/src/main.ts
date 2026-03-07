@@ -1,5 +1,7 @@
 import { app, BrowserWindow, dialog } from "electron";
 import path from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { randomBytes } from "node:crypto";
 import type { Server } from "node:http";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawn } from "node:child_process";
@@ -29,6 +31,25 @@ function runMigrations(): Promise<void> {
   });
 }
 
+const CONFIG_FILENAME = "financy-config.json";
+
+function getOrCreateJwtSecret(): string {
+  const userDataPath = app.getPath("userData");
+  const configPath = path.join(userDataPath, CONFIG_FILENAME);
+  mkdirSync(userDataPath, { recursive: true });
+  if (existsSync(configPath)) {
+    try {
+      const data = JSON.parse(readFileSync(configPath, "utf-8")) as { jwtSecret?: string };
+      if (data.jwtSecret) return data.jwtSecret;
+    } catch {
+      // invalid file, regenerate
+    }
+  }
+  const jwtSecret = randomBytes(32).toString("hex");
+  writeFileSync(configPath, JSON.stringify({ jwtSecret }, null, 0), "utf-8");
+  return jwtSecret;
+}
+
 async function startBackendInProcess(): Promise<void> {
   const { backendPath } = getPaths(__dirname);
   const entryPath = path.join(backendPath, "dist", "src", "index.js");
@@ -44,6 +65,7 @@ async function startBackendInProcess(): Promise<void> {
       port: BACKEND_PORT,
       databaseUrl,
       emitSchemaFile: false,
+      jwtSecret: getOrCreateJwtSecret(),
     });
   } finally {
     process.chdir(prevCwd);
