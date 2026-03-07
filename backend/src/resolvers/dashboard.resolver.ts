@@ -1,8 +1,8 @@
 import { Ctx, Query, Resolver, UseMiddleware } from 'type-graphql'
-import { GraphqlContext } from '../graphql/context'
-import { DashboardData } from '../models/dashboard.model'
-import { IsAuth } from '../middlewares/auth.middleware'
-import * as dashboardService from '../services/dashboard.service'
+import { GraphqlContext } from '../graphql/context/index.js'
+import { DashboardData } from '../models/dashboard.model.js'
+import { IsAuth } from '../middlewares/auth.middleware.js'
+import * as dashboardService from '../services/dashboard.service.js'
 
 @Resolver()
 export class DashboardResolver {

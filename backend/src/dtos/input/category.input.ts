@@ -1,5 +1,5 @@
 import { InputType, Field } from 'type-graphql'
-import { CategoryColorEnum, CategoryIconEnum } from '../../models/category.model'
+import { CategoryColorEnum, CategoryIconEnum } from '../../models/category.model.js'
 
 @InputType()
 export class CreateCategoryInput {

@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID, Int } from 'type-graphql'
-import { TransactionModel } from './transaction.model'
-import { CategoryColorEnum, CategoryIconEnum } from './category.model'
+import { TransactionModel } from './transaction.model.js'
+import { CategoryColorEnum, CategoryIconEnum } from './category.model.js'
 
 @ObjectType()
 export class CategorySummaryItem {

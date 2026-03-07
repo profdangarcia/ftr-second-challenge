@@ -1,9 +1,9 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql'
-import { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input'
-import { GraphqlContext } from '../graphql/context'
-import { TransactionListOutput, TransactionModel, TransactionTypeEnum } from '../models/transaction.model'
-import { IsAuth } from '../middlewares/auth.middleware'
-import * as transactionService from '../services/transaction.service'
+import { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input.js'
+import { GraphqlContext } from '../graphql/context/index.js'
+import { TransactionListOutput, TransactionModel, TransactionTypeEnum } from '../models/transaction.model.js'
+import { IsAuth } from '../middlewares/auth.middleware.js'
+import * as transactionService from '../services/transaction.service.js'
 
 @Resolver()
 export class TransactionResolver {

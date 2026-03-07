@@ -1,10 +1,10 @@
 import { startOfMonth, endOfMonth } from 'date-fns'
-import { prismaClient } from '../../prisma/prisma'
-import type { DashboardData } from '../models/dashboard.model'
-import type { CategorySummaryItem } from '../models/dashboard.model'
-import type { CategoryColorEnum, CategoryIconEnum } from '../models/category.model'
-import * as transactionService from './transaction.service'
-import * as categoryService from './category.service'
+import { prismaClient } from '../../prisma/prisma.js'
+import type { DashboardData } from '../models/dashboard.model.js'
+import type { CategorySummaryItem } from '../models/dashboard.model.js'
+import type { CategoryColorEnum, CategoryIconEnum } from '../models/category.model.js'
+import * as transactionService from './transaction.service.js'
+import * as categoryService from './category.service.js'
 
 function getCurrentMonthRange(): { start: Date; end: Date } {
   const now = new Date()
