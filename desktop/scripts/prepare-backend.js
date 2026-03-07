@@ -21,4 +21,6 @@ if (existsSync(lockPath)) cpSync(lockPath, path.join(target, "package-lock.json"
 
 execSync("npm install --omit=dev", { cwd: target, stdio: "inherit" });
 
+execSync("npx prisma generate", { cwd: target, stdio: "inherit" });
+
 console.log("Prepared backend-packaged");
