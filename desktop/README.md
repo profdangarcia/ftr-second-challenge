@@ -1,83 +1,98 @@
 # Financy Desktop
 
-App Electron que abre o frontend do Financy em uma janela desktop. O backend e o frontend são executados **em terminais separados**.
+Electron app that opens the Financy frontend in a desktop window. The backend and frontend run **in separate terminals**.
 
-## Pré-requisitos
+## Prerequisites
 
-- Node.js (versão do [.nvmrc](../.nvmrc) na raiz do repositório: `nvm use`)
-- Backend e frontend do projeto (pastas `backend/` e `frontend/` na raiz)
-- **Linux / WSL2** – Dependências de sistema para o Electron (GTK, etc.):
+- Node.js (version from root [.nvmrc](../.nvmrc): `nvm use`)
+- Backend and frontend projects (root folders `backend/` and `frontend/`)
+- **Linux / WSL2** – System dependencies for Electron (GTK, etc.):
   ```bash
   sudo apt update && sudo apt install -y libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 libxtst6
   ```
 
-## Desenvolvimento
+## Development
 
 1. **Terminal 1 – Backend**  
-   Na raiz do repositório:
+   From the repo root:
    ```bash
    cd backend && npm run dev
    ```
-   O backend sobe na porta 4000.
+   The backend runs on port 4000.
 
 2. **Terminal 2 – Frontend**  
-   Na raiz do repositório:
+   From the repo root:
    ```bash
    cd frontend && npm run dev
    ```
-   O frontend sobe em http://localhost:5173.
+   The frontend runs at http://localhost:5173.
 
 3. **Terminal 3 – Desktop**  
-   Na raiz do repositório:
+   From the repo root:
    ```bash
    cd desktop && npm run dev
    ```
-   O Electron abre uma janela carregando http://localhost:5173. O DevTools é aberto automaticamente em modo desenvolvimento.
+   Electron opens a window loading http://localhost:5173. DevTools open automatically in development mode.
 
 ## Scripts
 
-| Script   | Descrição |
-|----------|-----------|
-| `npm run dev`   | Compila o processo main e inicia o Electron (carrega o frontend em dev). |
-| `npm run build` | Compila o TypeScript do processo main para `dist/`. |
-| `npm run start` | Inicia o Electron (use após `npm run build`; em dev prefira `npm run dev`). |
-| `npm run build:icon` | Gera ícone PNG a partir do logo do frontend para o instalador. |
-| `npm run build:ui` | Gera o build do frontend e copia para `frontend-dist/` (uso no empacotamento). |
-| `npm run build:backend` | Prepara o backend compilado em `backend-packaged/` (uso no empacotamento). |
-| `npm run dist` | Gera instaladores (deb, AppImage, nsis, dmg) em `release/`. |
-| `npm run pack` | Gera o app empacotado sem instalador (pasta em `release/`) para testes. |
+| Script   | Description |
+|----------|-------------|
+| `npm run dev`   | Compiles the main process and starts Electron (loads the frontend in dev). |
+| `npm run build` | Compiles the main process TypeScript to `dist/`. |
+| `npm run start` | Starts Electron (use after `npm run build`; for dev prefer `npm run dev`). |
+| `npm run build:icon` | Generates PNG icon from the frontend logo for the installer. |
+| `npm run build:ui` | Builds the frontend and copies to `frontend-dist/` (for packaging). |
+| `npm run copy:ui` | Copies `frontend/dist` to `frontend-dist/` without running the frontend build. |
+| `npm run build:backend` | Prepares the compiled backend in `backend-packaged/` (for packaging). |
+| `npm run dist` | Full build: icon + frontend + backend + packaging; produces installers in `release/`. |
+| `npm run pack` | Same as `dist`, but only the unpacked folder in `release/` (no installer). |
+| `npm run release` | Produces installers in `release/` **without** rebuilding icon or frontend (uses existing `frontend-dist/` and `resources/`). |
+| `npm run release:dir` | Same as `release`, but only the unpacked folder (for quick tests). |
 
-## Empacotamento
+## Packaging
 
-É possível gerar versões instaláveis do app (Linux, Windows, macOS) a partir da pasta `desktop/`.
+You can build installable versions of the app (Linux, Windows, macOS) from the `desktop/` folder.
 
-**Pré-requisitos:** Node.js, builds do frontend e do backend funcionando (o script `dist` roda os builds necessários).
+**Prerequisites:** Node.js, working frontend and backend builds.
 
-**Comando para gerar instaladores:**
+**Full build** (icon + frontend + backend + installer):
 
 ```bash
 cd desktop && npm run dist
 ```
 
-Os instaladores são gerados em **`desktop/release/`**:
+**When the icon and frontend are already ready** (`frontend-dist/` and `resources/icon` exist), use this to build only the backend and release:
 
-- **Linux:** `.deb` e `AppImage`
-- **Windows:** instalador NSIS (`.exe`)
+```bash
+cd desktop && npm run release
+```
+
+Installers are generated in **`desktop/release/`**:
+
+- **Linux:** `.deb` and `AppImage`
+- **Windows:** NSIS installer (`.exe`)
 - **macOS:** `.dmg`
 
-Para testar o app empacotado sem instalar (pasta descompactada):
+To test the packaged app without installing (unpacked folder):
 
 ```bash
 cd desktop && npm run pack
 ```
 
-O executável estará em `release/linux-unpacked/`, `release/win-unpacked/` ou `release/mac/` conforme o sistema.
+Or, without rebuilding icon/frontend:
 
-## Estrutura
+```bash
+cd desktop && npm run release:dir
+```
 
-- `src/main.ts` – processo principal do Electron (janela, spawn do backend quando empacotado).
-- `src/env.ts` – paths do backend e do frontend (dev vs empacotado).
-- `dist/` – saída do `tsc` (gerada por `npm run build`).
-- `scripts/copy-ui.js` – copia o build do frontend para `frontend-dist/`.
-- `scripts/prepare-backend.js` – monta o backend para `backend-packaged/`.
-- `scripts/build-icon.js` – gera `resources/icon.png` a partir do logo do frontend.
+The executable will be in `release/linux-unpacked/`, `release/win-unpacked/`, or `release/mac/` depending on the system.
+
+## Structure
+
+- `src/main.ts` – Electron main process (window, backend spawn when packaged).
+- `src/env.ts` – Backend and frontend paths (dev vs packaged).
+- `dist/` – Output from `tsc` (from `npm run build`).
+- `scripts/copy-ui.js` – Copies the frontend build to `frontend-dist/`.
+- `scripts/prepare-backend.js` – Assembles the backend into `backend-packaged/`.
+- `scripts/build-icon.js` – Generates `resources/icon.png` from the frontend logo.

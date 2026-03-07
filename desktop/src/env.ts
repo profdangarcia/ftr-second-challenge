@@ -2,8 +2,8 @@ import { app } from "electron";
 import path from "node:path";
 
 /**
- * Paths relativos ao processo main do Electron.
- * mainDirname deve ser o __dirname do main (ex.: desktop/dist ou app.asar/dist).
+ * Paths relative to the Electron main process.
+ * mainDirname should be the __dirname of main (e.g. desktop/dist or app.asar/dist).
  */
 export function getPaths(mainDirname: string): {
   backendPath: string;
