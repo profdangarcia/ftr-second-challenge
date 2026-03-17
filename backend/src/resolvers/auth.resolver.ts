@@ -1,10 +1,10 @@
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from 'type-graphql'
-import { RegisterInput, LoginInput, UpdateProfileInput } from '../dtos/input/auth.input'
-import { AuthOutput } from '../dtos/output/auth.output'
-import { GraphqlContext } from '../graphql/context'
-import { UserModel } from '../models/user.model'
-import { IsAuth } from '../middlewares/auth.middleware'
-import * as authService from '../services/auth.service'
+import { RegisterInput, LoginInput, UpdateProfileInput } from '../dtos/input/auth.input.js'
+import { AuthOutput } from '../dtos/output/auth.output.js'
+import { GraphqlContext } from '../graphql/context/index.js'
+import { UserModel } from '../models/user.model.js'
+import { IsAuth } from '../middlewares/auth.middleware.js'
+import * as authService from '../services/auth.service.js'
 
 @Resolver()
 export class AuthResolver {

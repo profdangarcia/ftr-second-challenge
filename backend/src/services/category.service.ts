@@ -1,8 +1,8 @@
 import { GraphQLError } from 'graphql'
-import { prismaClient } from '../../prisma/prisma'
-import type { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input'
-import type { CategoryModel } from '../models/category.model'
-import type { CategoryColorEnum } from '../models/category.model'
+import { prismaClient } from '../../prisma/prisma.js'
+import type { CreateCategoryInput, UpdateCategoryInput } from '../dtos/input/category.input.js'
+import type { CategoryModel } from '../models/category.model.js'
+import type { CategoryColorEnum } from '../models/category.model.js'
 
 function toCategoryModel(
   category: {

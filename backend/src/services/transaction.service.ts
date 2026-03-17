@@ -1,8 +1,8 @@
 import { GraphQLError } from 'graphql'
-import { prismaClient } from '../../prisma/prisma'
-import type { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input'
-import type { TransactionModel, TransactionListOutput } from '../models/transaction.model'
-import { TransactionTypeEnum } from '../models/transaction.model'
+import { prismaClient } from '../../prisma/prisma.js'
+import type { CreateTransactionInput, UpdateTransactionInput } from '../dtos/input/transaction.input.js'
+import type { TransactionModel, TransactionListOutput } from '../models/transaction.model.js'
+import { TransactionTypeEnum } from '../models/transaction.model.js'
 
 export type TransactionFilters = {
   description?: string
